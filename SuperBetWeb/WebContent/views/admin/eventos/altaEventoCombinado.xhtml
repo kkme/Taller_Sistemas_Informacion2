@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/admin/bodyLayout.xhtml">
+		
+	<ui:define name="funcTitleAdmin">Combinar Eventos</ui:define>
+
+	<ui:define name="bodyContent">
+	
+			<f:metadata>  
+		       <f:event type="preRenderView" listener="#{gestionEvento.populateAllTipoEvento}"></f:event>  
+		    </f:metadata>  
+		    
+		    
+		<h:panelGrid columns="1" >
+			
+			<f:facet name="header">
+	 
+			  <h:panelGrid columns="4" id="selectedTES">
+				  <h:outputText value="* Nombre: " />		<h:inputText value="#{gestionEvento.comb_nombre}" required="true"/>
+				  <h:outputText value="* Descripción: " />	<h:inputText value="#{gestionEvento.comb_desc}" required="true" />
+			  </h:panelGrid>
+	
+			</f:facet>
+	
+	        <p:outputPanel id="dropArea" style="height:500px;">  
+	            <p:dataTable var="te" value="#{gestionEvento.comb_combinacion}"  
+	                    rendered="#{not empty gestionEvento.comb_combinacion}">  
+	                <p:column headerText="Evento">  
+	                    <h:outputText value="#{te.evento.nombre}" />  
+	                </p:column>  
+	                <p:column headerText="Tipo Apuesta">  
+	                    <h:outputText value="#{te.tipoApuesta.name}" />  
+	                </p:column>  
+	            </p:dataTable>  
+	        </p:outputPanel>  
+	
+	
+	  		<p:fieldset legend="Eventos "  style="float:left;">  
+	  
+		        <p:dataGrid id="combinacionTE" var="te" 
+		                    value="#{gestionEvento.comb_TipoEventosNoPagos}" columns="3">  
+		  
+		            <p:column>  
+		                <p:panel id="pnl" header="#{te.evento.nombre}" style="text-align:center">  
+		                    <h:panelGrid columns="1" style="width:100%;">  
+		                        <h:outputText value="#{te.tipoApuesta.name} comienza " />  
+		                    </h:panelGrid>  
+		                     <!-- TODO: Esto no está funcando cuando se recarga la pagina se vuelven a cargar todos los eventos no se borran  -->
+		                    <h:commandButton value="Agregar" immediate="true" action="#{gestionEvento.comb_onTEAdd}" >
+		                    <f:setPropertyActionListener target="#{gestionEvento.comb_selectedTE}" value="#{te}" />
+		                    </h:commandButton>
+		                </p:panel>  
+		                <p:draggable for="pnl" revert="true"  
+		                        handle=".ui-panel-titlebar" stack=".ui-panel"/>  
+		            </p:column>  
+		        </p:dataGrid>  
+	    	</p:fieldset>  
+	  	</h:panelGrid>
+  
+  
+ 		<h:commandButton value="Agregar Combinacion" action="#{gestionEvento.comb_agregarCombinacion}" >
+		</h:commandButton>
+		<p:droppable for="selectedTES" tolerance="touch"  
+	           activeStyleClass="ui-state-highlight"  
+	           datasource="combinacionTE"  
+	           dropListener="#{tableBean.comb_onTEDrop}"   
+	           onDropUpdate="dropArea combinacionTE"  
+	           onDrop="handleDrop"/>
+	</ui:define>	
+</ui:composition>
+
+</html>

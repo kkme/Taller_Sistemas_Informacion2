@@ -1,0 +1,27 @@
+ <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+                           
+	<persistence-unit name="SUPERBET_UNIT" transaction-type="JTA">
+		<jta-data-source>java:/superbetds</jta-data-source>
+		<class>dominio.Apuesta</class>
+		<class>dominio.ApuestaPizarra</class>
+		<class>dominio.Combinacion</class>
+		<class>dominio.Evento</class>
+		<class>dominio.Resultado</class>
+		<class>dominio.TipoApuesta</class>
+		<class>dominio.TipoEvento</class>
+		<class>dominio.Ubicacion</class>
+		<class>dominio.Usuario</class>
+		<class>dominio.Deporte</class>
+		<class>dominio.Competicion</class>
+		<class>dominio.Pais</class>
+		<class>dominio.Fuente</class>
+		<class>dominio.ParteAvatar</class> 
+        <properties>
+		    <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+	        <!-- Mostrar consulta en consola -->
+	        <property name="hibernate.show_sql" value="true"/>
+	        <property name="hibernate.format_sql" value="true"/>
+    </properties>		
+	</persistence-unit>
+</persistence>

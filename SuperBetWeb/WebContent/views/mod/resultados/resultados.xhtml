@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/mod/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitleAdmin">Editar Resultados de eventos</ui:define>
+	
+		<ui:define name="bodyContent">
+			<table align="left" cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tbody>
+					<tr> 
+						<td width="50%" valign="top">
+							<h3>Seleccione el evento</h3>
+							<br/>
+					    	<p:dataTable var="evento" value="#{gestionEvento.eventos}"
+				                 id="eventosAgregados" paginator="true" rows="8"
+				                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+						        <p:column>
+			                    	<f:facet name="header">  
+                 						<h:outputText value="Nombre" />  
+            						</f:facet>  
+				                    <h:outputText value="#{evento.nombre}"  />
+						        </p:column>
+  						        <p:column>
+  			                    	<f:facet name="header">  
+                 						<h:outputText value="Competicion" />  
+            						</f:facet>  
+				                    <h:outputText value="#{evento.competicion.nombre}"  />
+						        </p:column>
+   						        <p:column>
+   						        	<p:commandLink ajax="false" action="#{gestionResultado.editarResultadosEvento}">
+				                    	<h:outputText value="Editar resultados"/>
+				                    	<f:setPropertyActionListener value="#{evento}" 
+				                    		target="#{gestionEvento.eventoSelected}"></f:setPropertyActionListener>
+				                    </p:commandLink>
+						        </p:column>
+						    </p:dataTable>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</ui:define>
+	</ui:composition>
+</html>

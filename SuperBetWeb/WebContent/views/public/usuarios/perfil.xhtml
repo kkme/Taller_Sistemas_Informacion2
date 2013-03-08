@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+	<ui:define name="bodyContent">
+		<p:panel style="width:100%;">
+			<h3>Perfil</h3>
+		</p:panel>
+		<p:panel style="width:100%;">
+			<table width="100%">
+				<tr>
+					<td style="vertical-align: top;">
+						<div>
+							<h:graphicImage id="avatarImageId" width="80" height="80"
+											value="data:image/png;base64,#{usuarioMB.base64String}">
+							</h:graphicImage>	
+						</div>
+						<div>
+							<p:fileUpload style="font-size:12px;" allowTypes="*.jpg;*.png;*.gif;"
+								description="Images" fileUploadListener="#{usuarioMB.handleAvatarUpload}"
+								update="avatarImageId @parent" />
+						</div>
+						<br></br>
+						<p:tabView style="width:250px">
+							<p:tab title="Depositar">
+								<h:panelGrid id="depositarGrid" columns="2">
+									<h:outputText value="Monto a Depositar " />
+									<p:inputText id="txtMontoDepositar" value="#{usuarioMB.txtMontoDepositar}" />
+
+									<h:outputText value="Id Pay Pal " />
+									<p:inputText id="txtEmailPagador"
+										value="#{usuarioMB.txtEmailPagador}" />
+								</h:panelGrid>
+
+								<p:commandButton value="Enviar" update="depositarGrid,mensajeCuentasDepositar" action="#{usuarioMB.depositarDinero}" />  
+								<p:growl id="mensajeCuentasDepositar" showDetail="true" />
+							</p:tab>
+							<p:tab title="Retirar">
+								<h:panelGrid id="retirarGrid" columns="2">
+									<h:outputText value="Monto a Retirar " />
+									<p:inputText id="txtMontoRetirar" value="#{usuarioMB.txtMonto}" />
+									
+									<h:outputText value="Id Pay Pal " />
+									<p:inputText id="txtEmailCobrador"
+										value="#{usuarioMB.txtEmailCobrador}" />
+								</h:panelGrid>
+								<p:commandButton value="Cobrar" update="retirarGrid,mensajeCuentasRetirar" action="#{usuarioMB.retirarDinero}" />  
+								<p:growl id="mensajeCuentasRetirar" showDetail="true" />
+							</p:tab>
+						</p:tabView>
+					</td>
+					<td style="vertical-align: top">
+						<p:panel>
+							<h3>Datos Personales</h3>
+						</p:panel>
+						<p:panel
+							style="height:330px; font-size:10pt; padding:0px;" header="Datos Personales">
+							<h:panelGrid styleClass="bodyTextClass" columns="2"
+								cellspacing="10">
+								<h:outputText value="Nombres" />
+								<h:outputText value="#{usuarioMB.logedUser.names}" />
+
+								<h:outputText value="Apellidos" />
+								<h:outputText value="#{usuarioMB.logedUser.surnames}" />
+
+								<h:outputText value="E-Mail" />
+								<p:inplace>
+									<p:inputText value="#{usuarioMB.logedUser.email}" />
+								</p:inplace>
+
+								<h:outputText value="Telefono" />
+								<p:inplace>
+									<p:inputText value="#{usuarioMB.logedUser.phone}" />
+								</p:inplace>
+
+								<h:outputText value="Pais" />
+								<p:inplace label="#{usuarioMB.logedUser.country}">
+									<h:selectOneMenu
+										valueChangeListener="#{usuarioMB.onSelectPais}"
+										style="font-size:10pt">
+										<f:selectItems
+											noSelectionValue="#{usuarioMB.logedUser.country}"
+											value="#{coleccionesBean.paises}" var="pais"
+											itemLabel="#{pais.name}" itemValue="#{pais.name}"
+											styleClass="comboBox ui-helper" />
+									</h:selectOneMenu>
+								</p:inplace>
+
+								<h:outputText value="Ciudad" />
+								<p:inplace>
+									<p:inputText value="#{usuarioMB.logedUser.city}" />
+								</p:inplace>
+							</h:panelGrid>
+						</p:panel>
+					</td>
+					<td style="vertical-align: top">
+						<p:panel>
+							<h3>Datos de la Cuenta</h3>
+						</p:panel>
+						<p:panel
+							style="height:330px; font-size:10pt;">
+							<h:panelGrid styleClass="bodyTextClass" columns="2"
+								cellspacing="10">
+								<h:outputText value="Nombre de Usuario" />
+								<p:inplace>
+									<p:inputText value="#{usuarioMB.logedUser.userName}" />
+								</p:inplace>
+
+								<h:outputText value="Contraseña Actual" />
+								<p:inplace label="Ingrese su contraseña actual">
+									<p:password value="#{usuarioMB.oldPassword}" feedback="true" />
+								</p:inplace>
+
+								<h:outputText value="Contraseña Nueva" />
+								<p:inplace label="Ingrese su contraseña nueva">
+									<p:password value="#{usuarioMB.newPassword}" feedback="true" />
+								</p:inplace>
+
+								<h:outputText value="Confirmar Contraseña Nueva" />
+								<p:inplace label="Repita su contraseña nueva">
+									<p:password value="#{usuarioMB.confirmPassInput}"
+										feedback="false" />
+								</p:inplace>
+
+								<h:outputText value="Saldo" />
+								<h:outputText value="#{usuarioMB.logedUser.monto}" >
+									<f:convertNumber maxFractionDigits="2" />
+								</h:outputText>
+							</h:panelGrid>
+						</p:panel>
+					</td>
+					<td style="vertical-align: top">
+						<p:panel>
+							<h3>Historial de Apuestas</h3>
+						</p:panel>
+						<p:panel
+							style="height:330px; font-size:10pt;">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:dataTable var="apuesta" value="#{usuarioMB.apuestas}"
+									id="apuestas" paginator="true" rows="4"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Tipo de apuesta" />
+										</f:facet>
+										<h:outputText value="#{apuesta.tipoApuesta.name}" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Monto" />
+										</f:facet>
+										<h:outputText value="#{apuesta.amount}" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Fecha" />
+										</f:facet>
+										<h:outputText value="#{apuesta.fechaApuesta}"
+											converter="dateConverterParaHistorial" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="¿Esta paga?" />
+										</f:facet>
+										<h:outputText value="#{apuesta.fuePaga}"
+											converter="booleanConverter" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Ganancia" />
+										</f:facet>
+										<h:outputText value="#{apuesta.ganancia}" />
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+						</p:panel>
+					</td>
+				</tr>
+			</table>
+			<f:facet name="footer" style="align:right">
+				<p:commandButton ajax="false" style="font-size:9pt" value="Guardar" action="#{usuarioMB.onGuardarClick}" />
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

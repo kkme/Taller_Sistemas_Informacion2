@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-facesconfig_3_0.xsd">
+
+   <application> 
+        <locale-config>
+            <default-locale>es</default-locale>
+        </locale-config>
+        <message-bundle>messages_es</message-bundle>
+    </application>
+
+ <converter>
+    <converter-id>deporteConverter</converter-id>
+    <converter-class>converters.DeporteConverter</converter-class>
+ </converter>
+ 
+  <converter>
+    <converter-id>competicionConverter</converter-id>
+    <converter-class>converters.CompeticionConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>tipoApuestaConverter</converter-id>
+    <converter-class>converters.TipoApuestaConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>paisConverter</converter-id>
+    <converter-class>converters.PaisConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>dateConverter</converter-id>
+    <converter-class>converters.DateConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>dateConverterParaHistorial</converter-id>
+    <converter-class>converters.DateConverterParaHistorial</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>booleanConverter</converter-id>
+    <converter-class>converters.BooleanConverter</converter-class>
+  </converter>
+  
+  <!-- navigation rules LOGIN -->
+  
+    <navigation-rule>
+    <from-view-id>/*</from-view-id>
+    <navigation-case>
+        <from-outcome>administrador</from-outcome>
+        <to-view-id>/views/admin/home.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+       <navigation-case>
+        <from-outcome>moderador</from-outcome>
+        <to-view-id>/views/mod/home.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+       <navigation-case>
+        <from-outcome>usuario</from-outcome>
+        <to-view-id>/views/public/home.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+   
+   
+   </navigation-rule>
+   
+    <navigation-rule>
+	    <from-view-id>/*</from-view-id>
+	    <navigation-case>
+	        <from-outcome>welcome</from-outcome>
+	        <to-view-id>/views/welcome.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+    </navigation-rule>
+  
+  <!-- navigation rules ADMIN MODE -->
+  
+  <navigation-rule>
+    <from-view-id>/views/admin/*</from-view-id>
+    <navigation-case>
+        <from-outcome>home</from-outcome>
+        <to-view-id>/views/admin/home.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+  </navigation-rule>
+    
+  <navigation-rule>
+    <from-view-id>/views/admin/eventos/*</from-view-id>
+    <navigation-case>
+        <from-outcome>eventos</from-outcome>
+        <to-view-id>/views/admin/eventos/eventos.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <navigation-rule>
+    <from-view-id>/views/admin/eventos/eventos.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>editarEvento</from-outcome>
+        <to-view-id>/views/admin/eventos/editarEvento.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <navitarion-rule>
+   	<from-view-id>/views/admin/moderadores/moderadores.xhtml</from-view-id>
+   	<navigation-case>
+   		<from-outcome>editarModerador</from-outcome>
+   		<to-view-id>/views/admin/moderadores/editarModerador.xhtml</to-view-id>
+   		<redirect/>
+   	</navigation-case>
+   </navitarion-rule>  
+   
+   <navitarion-rule>
+   	<from-view-id>/views/admin/moderadores/altaModerador.xhtml</from-view-id>
+   	<navigation-case>
+   		<from-outcome>moderadores</from-outcome>
+   		<to-view-id>/views/admin/moderadores/moderadores.xhtml</to-view-id>
+   		<redirect/>
+   	</navigation-case>
+   </navitarion-rule>  
+   
+   <!-- navigation rules PUBLIC MODE -->
+  
+   <navigation-rule>
+    <from-view-id>/views/public/*</from-view-id>
+    <navigation-case>
+        <from-outcome>home</from-outcome>
+        <to-view-id>/views/public/home.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    
+    <navigation-case>
+        <from-outcome>perfil</from-outcome>
+        <to-view-id>/views/public/usuarios/perfil.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    
+    </navigation-rule>
+  
+  <!-- navigation rules MODERATOR MODE -->  
+  
+      <navigation-rule>
+	    <from-view-id>/views/mod/*</from-view-id>
+	    <navigation-case>
+	        <from-outcome>resultados</from-outcome>
+	        <to-view-id>/views/mod/resultados/resultados.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+    </navigation-rule>
+  
+    <navigation-rule>
+	    <from-view-id>/views/mod/resultados/resultados.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>editarResultados</from-outcome>
+	        <to-view-id>/views/mod/resultados/editarResultados.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+	    <from-view-id>/views/mod/resultados/editarResultados.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>siguiente</from-outcome>
+	        <to-view-id>/views/mod/resultados/editarResultados2.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+	    <from-view-id>/views/mod/resultados/editarResultados2.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>anterior</from-outcome>
+	        <to-view-id>/views/mod/resultados/editarResultados.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+	    <from-view-id>/views/public/home.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>mapa</from-outcome>
+	        <to-view-id>/views/public/utiles/mapaEventos.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+    </navigation-rule>
+   
+</faces-config> 
+
+

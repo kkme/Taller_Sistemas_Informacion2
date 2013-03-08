@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+
+		<ui:define name="funcTitlePublic">
+		<h:outputText value="Retirar Dinero de cuenta" ></h:outputText>
+		</ui:define>
+
+
+		<ui:define name="bodyContent">
+
+
+		<h:panelGroup>
+
+			<p:panel id="retirarDineroPanel">
+					<h:outputText
+						value="Su monto actual es: #{usuarioMB.logedUser.monto} " />
+					<h:panelGrid columns="3">
+						<h:outputText value="Monto a Retirar: " />
+						<p:inputText id="txtMonto" value="#{usuarioMB.txtMonto}" />
+						<h:message for="txtMonto" />
+
+						<h:outputText value="Id Pay Pal" />
+						<p:inputText id="txtEmailCobrador"
+							value="#{usuarioMB.txtEmailCobrador}" />
+						<h:message for="txtEmailCobrador" />
+					</h:panelGrid>
+					<p:commandButton value="Cobrar" ajax="false" action="#{usuarioMB.retirarDinero}" />
+
+		
+			</p:panel>
+
+		</h:panelGroup>
+
+
+	</ui:define>
+		
+	</ui:composition>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition >
+
+		<h:outputText value="Seleccione Resultado Ganador" /> 
+		
+
+		<h:panelGrid columns="2" id="tabwizard2" >
+
+    	<p:dataTable var="resultado" value="#{moderadorMB.pagar_resultados}"
+			id="tablaResultados" paginator="true" rows="4" rendered="#{moderadorMB.pagar_selectedEvent ne null}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+			
+		<p:column>
+                 <f:facet name="header">  
+           			<h:outputText value="Descripcion" />  
+      			 </f:facet>  
+                  <h:outputText value="#{resultado.description}"  />
+        </p:column>
+        
+        <p:column>
+                 <f:facet name="header">  
+           			<h:outputText value="Cuota" />  
+      			 </f:facet>  
+                  <h:outputText value="#{resultado.cuota}"  />
+        </p:column>
+        
+        
+	
+		<p:column>
+		       	<p:commandLink  ajax="false" process="@this panelSelectdEvent panelSelectdResult" update="panelSelectdResult" >
+                  	<h:outputText value="seleccionar"/> 
+                  	<f:setPropertyActionListener target="#{moderadorMB.pagar_selectedResult}" value="#{resultado}" />
+                 </p:commandLink>
+        </p:column>
+        
+        
+	
+		</p:dataTable>
+		
+		<p:outputPanel id="panelSelectdResult" rendered="#{moderadorMB.pagar_selectedResult ne null}">
+			<h:outputText value="Resultado Ganador" />
+			<h:panelGrid columns="2">
+				<h:outputText value="Descripción" />
+				<h:outputText value="#{moderadorMB.pagar_selectedResult.description}" />
+			</h:panelGrid>
+		</p:outputPanel>
+		</h:panelGrid>
+		
+		
+<p:commandButton onclick="dlg1.show();" value="Pagar!" />		
+
+	<p:dialog header="Confirmación" widgetVar="dlg1"> 
+	<h:panelGrid columns="2"> 
+    
+    <h:outputText value="Nombre Evento: " />    
+    <h:outputText value="#{moderadorMB.pagar_selectedEvent.nombre}" />
+    
+    <h:outputText value="Tipo Apuesta: " />
+    <h:outputText value="#{moderadorMB.pagar_selectedTipoApuesta.name} " />
+    
+    <h:outputText value="Resultado: " />
+    <h:outputText value="#{moderadorMB.pagar_selectedResult.description} " />
+    
+    <h:commandButton value="Pagar Apuestas"  action="#{moderadorMB.pagar_pagarApuestas}" >
+    <f:ajax execute="@form" render="messagesMod" />
+    </h:commandButton> 
+    <h:commandButton value="Cancelar"  action="#{moderadorMB.limpiarCampos}" update="messagesMod">
+    </h:commandButton>
+    
+    </h:panelGrid> 
+</p:dialog>  
+		
+		
+
+
+		
+	</ui:composition>
+</html>

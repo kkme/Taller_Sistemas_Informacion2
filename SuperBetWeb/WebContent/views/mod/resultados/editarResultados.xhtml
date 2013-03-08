@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/mod/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitleAdmin">Editar resultados de eventos</ui:define>
+			
+		<ui:define name="bodyContent">
+			<p:growl id="message"></p:growl>
+			<table align="left" cellpadding="0" cellspacing="25" border="0" width="100%">
+				<tbody>
+					<tr> 
+						<td width="30%" valign="top">
+						
+							<h3>Datos del evento</h3>
+							<h:panelGrid columns="2" cellspacing="10">
+								<h:outputText value="Nombre"/>
+								<h:outputText value="#{gestionEvento.eventoSelected.nombre}" style="font-weight: bold;"/>
+								<h:outputText value="Fecha inicio"/>
+								<h:outputText value="#{gestionEvento.eventoSelected.inicio}" style="font-weight: bold;">
+									<f:converter converterId="dateConverter"></f:converter>
+								</h:outputText>
+								<h:outputText value="Fecha fin"/>
+								<h:outputText value="#{gestionEvento.eventoSelected.fin}" style="font-weight: bold;">
+									<f:converter converterId="dateConverter"></f:converter>
+								</h:outputText>
+								<h:outputText value="Deporte"/>
+								<h:outputText value="#{gestionEvento.eventoSelected.competicion.deporte.name}" style="font-weight: bold;"/>														
+								<h:outputText value="Competicion"/>
+								<h:outputText value="#{gestionEvento.eventoSelected.competicion.nombre}" style="font-weight: bold;"/>		
+							</h:panelGrid>
+							
+						</td>
+						
+						<td width="70%" valign="top">
+						
+							<h3>Comienzo y fin del período de apuestas</h3>
+							<h:panelGrid columns="5" cellspacing="10" id="fechasGrid">
+								<h:outputText value="Inicio Apuestas"/>	
+								<p:calendar id="inicioApuesta" value="#{gestionEvento.fechaInicioApuesta}"  required="true" styleClass="textField" 
+									pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7"/>	
+								<p:spinner value="#{gestionEvento.horaInicioApuesta}" min="0" max="23" size="2"/>
+								<p:spinner value="#{gestionEvento.minInicioApuesta}" min="0" max="59" size="2"/>
+								<p:message for="inicioApuesta"/>
+								<h:outputText value="Fin Apuestas"/>
+								<p:calendar id="finApuesta" value="#{gestionEvento.fechaFinApuesta}"  required="true" styleClass="textField" 
+									pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7"/>	
+								<p:spinner value="#{gestionEvento.horaFinApuesta}" min="0" max="23" size="2"/>
+								<p:spinner value="#{gestionEvento.minFinApuesta}" min="0" max="59" size="2"/>
+								<p:message for="finApuesta"/>
+							</h:panelGrid>
+										
+							<h3>Agregar resultados</h3>				    
+							<h:panelGrid columns="3" id="grid" cellspacing="10">  
+							 
+							 	<h:outputText value="Seleccione un tipo de apuesta*"/>
+	 							<h:selectOneMenu id="comboTipoApuesta" value="#{gestionResultado.idTipoApuesta}" 
+									styleClass="comboBox ui-helper" lenght="16">
+									<f:selectItem itemLabel="Seleccione un tipo de apuesta" itemValue="-1"/>
+									<f:selectItems value="#{coleccionesBean.tipoApuestas}" var="c" itemLabel="#{c.name}"  itemValue="#{c.id}" />
+									<p:ajax update="tablaResultados" listener="#{gestionResultado.preCargarResultados}"/>
+								</h:selectOneMenu>
+								<p:message for="comboTipoApuesta"/>
+
+
+					            <h:outputLabel value="Ingrese una descripcion*" />  
+					            <p:inputText id="inputDesc" value="#{gestionResultado.nuevoResultado.description}" immediate="true" size="23"/>
+					            <p:message for="inputDesc"/>
+					            
+					            
+					            <h:outputLabel value="Ingrese una cuota*" />  
+					            <p:inputText id="inputCuota" value="#{gestionResultado.nuevoResultado.cuota}" immediate="true" size="23"/>
+					            <p:message for="inputCuota"/>
+					            
+
+					            <p:commandButton value="Agregar" action="#{gestionResultado.recargar}" 
+					                             actionListener="#{gestionResultado.agregarResultado}"
+					                             update="tablaResultados @parent grid" 
+					                             process="tablaResultados @parent grid">  
+					            </p:commandButton>
+					              
+					        </h:panelGrid>  
+
+							<p:dataTable id="tablaResultados" value="#{gestionResultado.resultados}" var="res"  >  
+					           <p:column>  
+					                <f:facet name="header">  
+					                    <h:outputText value="Descripcion" />  
+					                </f:facet>  
+					                <h:outputText value="#{res.description}" />  
+					            </p:column>  
+					            <p:column>  
+					                <f:facet name="header">  
+					                    <h:outputText value="Cuota" />  
+					                </f:facet>  
+					                <h:outputText value="#{res.cuota}" />  
+					            </p:column>
+					            <p:column>  
+					                <f:facet name="header">  
+					                    <h:outputText value="Eliminar" />  
+					                </f:facet>  <!-- TODO: esto no esta andando -->
+					                <p:commandButton  image="/images/close.png" action="gestionResultado.eliminarResultado" update="tablaResultados" >
+					                <f:setPropertyActionListener value="#{res}" target="#{gestionResultado.resultadoAEliminar}"></f:setPropertyActionListener>
+					                </p:commandButton>
+
+					            </p:column> 
+					            
+					         </p:dataTable>  
+					         
+					
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td valign="bottom" align="right">
+							<p:commandButton ajax="false" value="Guardar" action="#{gestionResultado.altaResultados}" update="fechasGrid" proccess="fechasGrid">
+							</p:commandButton>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</ui:define>
+		
+	</ui:composition>
+</html>

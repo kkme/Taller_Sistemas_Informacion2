@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition >
+									<f:metadata>  
+		       							<f:event type="preRenderView" listener="#{gestionEvento.ur_cargarListaResultadosGeneral}"></f:event>  
+		    						</f:metadata> 
+							<p:carousel value="#{gestionEvento.ur_listaResult}" itemStyle="padding:10px;margin:20px;"
+										var="res" 
+										rendered="#{ not empty gestionEvento.ur_listaResult  }"	
+										autoPlayInterval="3000"  
+        								rows="1" effect="easeInStrong" circular="true" >
+										
+								    	<p:column>
+								    	<h:panelGrid columns="1"  style="font-size:12px">
+											<h:outputText value="#{res.ganador.description}" />
+											<h:outputText value="#{res.evento.competicion.nombre}" style="color:gray"/>
+											
+											<p:rating value="#{res.evento.importancia}" disabled="true"/>  
+											
+											<p:calendar value="#{res.evento.inicio}"  styleClass="textField"  disabled="true" 
+														pattern="dd/MM/yyyy" locale="uy" converter="dateConverter"  />	
+														
+											<p:calendar value="#{res.evento.fin}"  disabled="true"   styleClass="textField" 
+														pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" />
+			
+											<p:gmap	center="#{res.evento.ubicacion.latitud} ,  #{res.evento.ubicacion.longitud}"
+												mapTypeControl="false" navigationControl="false" draggable="false" disableDoubleClickZoom="true"
+												zoom="15" type="ROADMAP" style="width:200px;height:100px"  >
+											</p:gmap>
+											
+										
+										</h:panelGrid>
+										
+										</p:column>
+										<p:column>
+										<p:spacer ></p:spacer>
+										</p:column>
+										
+							</p:carousel>
+
+	</ui:composition>
+</html>

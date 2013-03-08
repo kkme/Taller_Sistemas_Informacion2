@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/admin/bodyLayout.xhtml">
+
+	<ui:define name="funcTitleAdmin">Crear un moderador</ui:define>
+
+	<ui:define name="bodyContent">
+		
+			<table align="left" cellpadding="0" cellspacing="0" border="0"
+				width="100%">
+				<tbody>
+					<tr>
+						<td width="30%" valign="top">
+							<h:panelGrid id="grid" columns="3"
+								cellspacing="10">
+								<h:outputText value="Nombres" />
+								<p:inputText id="namesInput" value="#{moderadorMB.names}"
+									required="true" />
+								<p:message for="namesInput" />
+								
+								<h:outputText value="Apellidos" />
+								<p:inputText id="surnamesInput" value="#{moderadorMB.surnames}"
+									required="true" />
+								<p:message for="surnamesInput" />
+
+								<h:outputText value="Username" />
+								<p:inputText id="userNameInput" value="#{moderadorMB.userName}"
+									required="true" />
+								<p:message for="userNameInput" />
+								
+								<h:outputText value="Contraseña" />
+								<p:inputText id="passInput" value="#{moderadorMB.password}"
+									required="true" />
+								<p:message for="passInput" />
+							</h:panelGrid> 
+							<p:commandButton 
+								value="Guardar"
+								action="#{moderadorMB.altaModerador}" 
+								update="grid @parent"
+								process="grid @parent">
+							</p:commandButton>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		
+	</ui:define>
+</ui:composition>
+</html>

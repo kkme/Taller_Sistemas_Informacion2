@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/admin/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitleAdmin">Editar el evento</ui:define>
+	
+		<ui:define name="bodyContent">
+			<table align="left" cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tbody>
+					<tr> 
+						<td width="45%" valign="top">
+							<h3>Datos principales</h3>
+							<h:panelGrid columns="2" cellspacing="10">
+								<h:outputText value="Ingrese el nombre del evento "/>
+								<p:inputText value="#{gestionEvento.eventoSelected.nombre}"/>
+								<h:outputText value="Seleccione el deporte"/>
+								<p:autoComplete dropdown="true" 
+												value="#{gestionEvento.eventoSelected.competicion.deporte}" 
+												minQueryLength="1"
+												var="deporte"
+												itemLabel="#{deporte.name}"
+												itemValue="#{deporte}"
+												completeMethod="#{coleccionesBean.completeDeporte}"
+												effect="fade" 
+												converter="deporteConverter"
+												forceSelection="true"
+												selectListener="#{coleccionesBean.handleSelectDeporte}"
+												styleClass="textField"/>
+								<h:outputText value="Seleccione la competición"/>
+								<p:autoComplete dropdown="true" 
+												value="#{gestionEvento.eventoSelected.competicion}"
+												minQueryLength="1"
+												var="competicion"
+												itemLabel="#{competicion.nombre}"
+												itemValue="#{competicion}"
+												completeMethod="#{coleccionesBean.completeCompeticion}"
+												effect="fade"
+												converter="competicionConverter"
+												selectListener="#{coleccionesBean.handleSelectCompeticion}"
+												styleClass="textField"/>
+								<h:outputText value="Ingrese la importancia"/>
+								<p:rating value="#{gestionEvento.eventoSelected.importancia}" />
+							</h:panelGrid>
+							
+							<h3>¿Cuando ocurrirá?</h3>
+							<h:panelGrid columns="4" cellspacing="10">
+								<h:outputText value="Seleccione fecha y hora de inicio"/>	
+								<p:calendar value="#{gestionEvento.fechaInicio}" styleClass="textField" 
+								pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7"></p:calendar>	
+								<p:spinner value="#{gestionEvento.horaInicio}" min="0" max="23" size="2"/>
+								<p:spinner value="#{gestionEvento.minInicio}" min="0" max="59" size="2"/>
+								
+								<h:outputText value="Seleccione fecha y hora de fin"/>			
+								<p:calendar value="#{gestionEvento.fechaFin}" styleClass="textField" 
+								pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7"></p:calendar>		
+								<p:spinner value="#{gestionEvento.horaFin}" min="0" max="23" size="2"/>
+								<p:spinner value="#{gestionEvento.minFin}" min="0" max="59" size="2"/>
+															
+							</h:panelGrid>						
+							
+						</td>
+						
+						<td width="55%" valign="top">
+							<h3>Ubicación del evento</h3>
+							<h:outputText value="Mueva el marcador a la posición del evento"/>
+							<p:gmap center="#{gestionEvento.eventoSelected.ubicacion.latitud}, #{gestionEvento.eventoSelected.ubicacion.longitud}" zoom="10" 
+							type="ROADMAP"	model="#{mapaBean.emptyModel}" 
+							style="width:570px;height:340px" markerDragListener="#{mapaBean.onMarkerDrag}" 
+							onMarkerDragUpdate="latlong" 
+							widgetVar="map"/>
+
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:commandButton value="Editar" action="#{gestionEvento.confirmaEdicionEvento}" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</ui:define>
+		
+	</ui:composition>
+</html>

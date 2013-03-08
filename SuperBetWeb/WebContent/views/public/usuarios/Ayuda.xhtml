@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+	<ui:define name="bodyContent">
+	<p:panel >
+	<h3>Tipos de Apuestas</h3>
+	</p:panel>
+	
+	
+		<p:panel style="width:100%; align:left; padding:0px; outline:0px;"	>
+
+
+			<h:panelGrid columns="2" width="500"  >
+
+
+
+				<h:outputLabel value="Colocado (Situado)" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el participante que finalizará la prueba entre los tres primeros clasificados." />
+
+				<h:outputLabel value="Combinada(Múltiple)" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Combinar varios eventos en una sola apuesta. La apuesta se gana si se aciertan todos y
+cada uno de los eventos y la cuota total se obtiene multiplicando entre sí las cuotas de
+los eventos individuales." />
+
+
+
+				<h:outputLabel value="En Directo(Live)" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el ganador de un evento en vivo, mientras se desarrolla el partido. Las cuotas
+fluctúan en función del resultado de cada momento." />
+
+				<h:outputLabel value="Largo plazo (Futuros)" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el ganador de una competencia a final de temporada." />
+
+				<h:outputLabel value="MedioTiempo/ Final" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el resultado tanto en el primer tiempo como en el final del partido." />
+
+				<h:outputLabel value="Simple" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel  style="font-size:10pt" value="Predecir el resultado de un solo partido." />
+
+				<h:outputLabel value="Totales(Over/under)" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el número de goles del partido, independientemente de qué participante los marque." />
+
+				<h:outputLabel value="Resultado exacto" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el resultado exacto con el que finalizará el partido (3x1, 1x1, 0x1, etc.)" />
+
+				<h:outputLabel value="Primer goleador" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el jugador que hará el primer gol del partido." />
+
+				<h:outputLabel value="Primera parte" style="font-weight:bold; font-size:10pt;"/>
+				<h:outputLabel style="font-size:10pt"
+					value="Predecir el resultado del partido al término del primer tiempo." />
+
+			</h:panelGrid>
+			<f:facet name="footer" style="align:right">
+
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

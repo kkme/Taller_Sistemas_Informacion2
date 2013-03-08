@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+		<ui:define name="funcTitlePublic">
+			<h:outputText value="PAGINA INICIAL DEL USUARIO APOSTADOR" ></h:outputText>
+		</ui:define>
+				
+		<ui:define name="bodyContent"> 
+	
+									<f:metadata>  
+		       							<f:event type="preRenderView" listener="#{gestionEvento.ur_cargarListaResultados}"></f:event>  
+		    						</f:metadata> 
+		    						
+		    						
+		    						
+							<h3>Ultimos Resultados</h3>
+							
+							
+							
+							<p:carousel value="#{gestionEvento.ur_listaResult}" 
+										var="res" 
+										rendered="#{ not empty gestionEvento.ur_listaResult  }"	
+										autoPlayInterval="3000"   
+        								rows="1" effect="easeInStrong" circular="true" >
+										
+								    	<h:panelGrid  	columns="1" style="align:center;"
+								    		   			id="tablaUltimosResultados">
+								    		   			
+											<h:outputText value="#{res.ganador.description}" />
+											<h:outputText value="#{res.evento.competicion.nombre}" />
+											
+											<p:rating value="#{res.evento.importancia}" disabled="true"/>  
+											<h:outputText value="#{res.evento.competicion.deporte.name}" />
+											
+											<p:calendar value="#{res.evento.inicio}"  styleClass="textField"  disabled="true" 
+														pattern="dd/MM/yyyy" locale="uy" converter="dateConverter"  />	
+														
+											<p:calendar value="#{res.evento.fin}"  disabled="true"   styleClass="textField" 
+														pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" />
+			
+											<p:gmap	center="#{res.evento.ubicacion.latitud} ,  #{res.evento.ubicacion.longitud}"
+												zoom="15" type="HYBRID" style="width:300px;height:400px">
+											</p:gmap>
+										</h:panelGrid>
+										
+										<p:spacer ></p:spacer>
+							</p:carousel>
+
+
+
+
+
+
+
+
+
+
+	</ui:define>
+
+	</ui:composition>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition >
+		<h:form  prependId="false" style="font-size:12px;color:white;">
+		
+			<table width="100%">
+				<tbody>
+					<tr>
+						<td width="60%" >
+							<h:outputLink rendered="#{ usuarioMB.logedUser eq null }" style="font-size: 12px;color:white;"
+								value="/SuperBetWeb/views/registroUsuario.xhtml">
+									<h:outputText style="font-weight: bold; font-size:14px;" value="¡Regístrese!"/>
+							</h:outputLink>
+						</td>
+						<td width="40%">
+							<h:panelGrid columns="7"  rendered="#{ usuarioMB.logedUser eq null }"  > 				
+								<p:inputText id="loginInput" value="#{loginBean.txtLogin}" size="12"/>
+								<p:watermark for="loginInput" value="usuario" />
+								<p:password id="passwordInput" value="#{loginBean.txtPassword}" size="12" feedback="false" />
+								<p:watermark for="passwordInput" value="password"  />
+								<p:commandButton value="Login" update="msgBox,loginPanel" styleClass="commandButtonClass" action="#{loginBean.ingresar_ON_CLICK}"  />
+								
+								<h:panelGrid columns="3" rendered="#{! loginBean.mostrarEnviarCorreo}"  >
+									<p:commandLink style="font-size: 12px;color:white;" value="¿Olvidó su contraseña?" 
+									 update="msgBox,fieldEnviarCorreo" ajax="false" >
+										<f:setPropertyActionListener target="#{loginBean.mostrarEnviarCorreo}" value="true" /> 
+									</p:commandLink>
+								</h:panelGrid>
+								
+								<p:fieldset style="font-size: 10px;color:white;"  rendered="#{loginBean.mostrarEnviarCorreo}" id="fieldEnviarCorreo" >
+									<h:outputText value="Ingrese su correo: " /> <h:inputText id="inputMail" value="#{loginBean.txtMail}" title="Recibira su contraseña en su correo" /><br/>
+									<h:commandLink value="Recuperar Contraseña" action="#{loginBean.enviarContrasenia}" required="true" >
+										<f:ajax execute="@this msgBox inputMail" render="msgBox" />
+										<f:setPropertyActionListener target="#{loginBean.mostrarEnviarCorreo}" value="false" /> 
+									</h:commandLink>
+								</p:fieldset>
+							</h:panelGrid>
+			
+							<h:panelGrid columns="2"  rendered="#{ usuarioMB.logedUser ne null }" columnClasses="colLogin1, colLogin2"> 
+								<h:column>
+									<h:graphicImage  width="60" height="60" value="data:image/png;base64,#{usuarioMB.base64String}"
+										style="border: thin solid gray"/>
+										
+									<br />
+								
+									<h:outputText rendered="#{usuarioMB.logedUser.role eq 'usuario'}"   value=" $ #{usuarioMB.logedUser.monto}" />
+								</h:column>
+								<h:column>
+									<h:outputText value="Bienvenido #{usuarioMB.logedUser.names} !!"/>
+									<h:panelGrid columns="2">
+										<h:commandLink id="link" action="perfil" style="color:white;">
+					  						<h:outputText value="ver perfil"/>
+										</h:commandLink>
+										<h:commandLink id="linkLogout" update="msgBox" action="#{loginBean.logout}" style="color:white;">
+					  						<h:outputText value="log out"/>
+										</h:commandLink>
+									</h:panelGrid>
+								</h:column>
+		
+							</h:panelGrid>
+									
+						</td>
+					</tr>
+				</tbody>
+			</table>				
+				<p:growl id="msgBox" showDetail="true" />  
+		</h:form>
+	</ui:composition>
+	
+</html>

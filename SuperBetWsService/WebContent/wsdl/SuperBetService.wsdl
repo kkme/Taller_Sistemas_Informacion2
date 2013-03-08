@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="ServiceProviderImplService" targetNamespace="http://provider.externo.servicios.superbet/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://provider.externo.servicios.superbet/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://provider.externo.servicios.superbet/" version="1.0" xmlns:tns="http://provider.externo.servicios.superbet/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="apostar" type="tns:apostar" />
+<xs:element name="apostarResponse" type="tns:apostarResponse" />
+<xs:element name="enviarResultadosGanadores" type="tns:enviarResultadosGanadores" />
+<xs:element name="enviarResultadosGanadoresResponse" type="tns:enviarResultadosGanadoresResponse" />
+<xs:element name="listarEventosSimples" type="tns:listarEventosSimples" />
+<xs:element name="listarEventosSimplesResponse" type="tns:listarEventosSimplesResponse" />
+<xs:element name="listarResultados" type="tns:listarResultados" />
+<xs:element name="listarResultadosResponse" type="tns:listarResultadosResponse" />
+<xs:element name="obtenerApuestasPagasUsuario" type="tns:obtenerApuestasPagasUsuario" />
+<xs:element name="obtenerApuestasPagasUsuarioResponse" type="tns:obtenerApuestasPagasUsuarioResponse" />
+<xs:complexType name="obtenerApuestasPagasUsuario">
+<xs:sequence>
+<xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="obtenerApuestasPagasUsuarioResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:dataGanador" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dataGanador">
+<xs:sequence>
+<xs:element minOccurs="0" name="ganancia" type="xs:double" />
+<xs:element minOccurs="0" name="idApuesta" type="xs:int" />
+<xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="listarEventosSimples">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="listarEventosSimplesResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:dataEvento" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dataEvento">
+<xs:sequence>
+<xs:element minOccurs="0" name="descripcion" type="xs:string" />
+<xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+<xs:element minOccurs="0" name="id" type="xs:int" />
+<xs:element minOccurs="0" name="latitud" type="xs:double" />
+<xs:element minOccurs="0" name="longitud" type="xs:double" />
+<xs:element minOccurs="0" name="nombre" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="apostar">
+<xs:sequence>
+<xs:element minOccurs="0" name="idUser" type="xs:int" />
+<xs:element minOccurs="0" name="idEvento" type="xs:int" />
+<xs:element minOccurs="0" name="idResultado" type="xs:int" />
+<xs:element minOccurs="0" name="monto" type="xs:double" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="apostarResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="listarResultados">
+<xs:sequence>
+<xs:element minOccurs="0" name="idEvento" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="listarResultadosResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:dataResultado" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dataResultado">
+<xs:sequence>
+<xs:element minOccurs="0" name="descripcion" type="xs:string" />
+<xs:element minOccurs="0" name="dividendo" type="xs:double" />
+<xs:element minOccurs="0" name="id" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="enviarResultadosGanadores">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="tns:dataGanador" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="enviarResultadosGanadoresResponse">
+<xs:sequence />
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="apostar">
+    <wsdl:part element="tns:apostar" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerApuestasPagasUsuario">
+    <wsdl:part element="tns:obtenerApuestasPagasUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="apostarResponse">
+    <wsdl:part element="tns:apostarResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarEventosSimples">
+    <wsdl:part element="tns:listarEventosSimples" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerApuestasPagasUsuarioResponse">
+    <wsdl:part element="tns:obtenerApuestasPagasUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="enviarResultadosGanadoresResponse">
+    <wsdl:part element="tns:enviarResultadosGanadoresResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarResultadosResponse">
+    <wsdl:part element="tns:listarResultadosResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarResultados">
+    <wsdl:part element="tns:listarResultados" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="enviarResultadosGanadores">
+    <wsdl:part element="tns:enviarResultadosGanadores" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarEventosSimplesResponse">
+    <wsdl:part element="tns:listarEventosSimplesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ServiceProviderImpl">
+    <wsdl:operation name="obtenerApuestasPagasUsuario">
+      <wsdl:input message="tns:obtenerApuestasPagasUsuario" name="obtenerApuestasPagasUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerApuestasPagasUsuarioResponse" name="obtenerApuestasPagasUsuarioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarEventosSimples">
+      <wsdl:input message="tns:listarEventosSimples" name="listarEventosSimples">
+    </wsdl:input>
+      <wsdl:output message="tns:listarEventosSimplesResponse" name="listarEventosSimplesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="apostar">
+      <wsdl:input message="tns:apostar" name="apostar">
+    </wsdl:input>
+      <wsdl:output message="tns:apostarResponse" name="apostarResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarResultados">
+      <wsdl:input message="tns:listarResultados" name="listarResultados">
+    </wsdl:input>
+      <wsdl:output message="tns:listarResultadosResponse" name="listarResultadosResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="enviarResultadosGanadores">
+      <wsdl:input message="tns:enviarResultadosGanadores" name="enviarResultadosGanadores">
+    </wsdl:input>
+      <wsdl:output message="tns:enviarResultadosGanadoresResponse" name="enviarResultadosGanadoresResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceProviderImplServiceSoapBinding" type="tns:ServiceProviderImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="obtenerApuestasPagasUsuario">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerApuestasPagasUsuario">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerApuestasPagasUsuarioResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarEventosSimples">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="listarEventosSimples">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="listarEventosSimplesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="apostar">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="apostar">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="apostarResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarResultados">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="listarResultados">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="listarResultadosResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="enviarResultadosGanadores">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="enviarResultadosGanadores">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="enviarResultadosGanadoresResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceProviderImplService">
+    <wsdl:port binding="tns:ServiceProviderImplServiceSoapBinding" name="ServiceProviderImplPort">
+      <soap:address location="http://192.168.1.100:80/SuperBetWsService/service" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

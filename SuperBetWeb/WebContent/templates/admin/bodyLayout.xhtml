@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/admin/mainLayout.xhtml">
+
+		<ui:define name="pageTitle">SuperBet admin mode</ui:define>
+		
+		<ui:define name="body">					
+			<table align="center" cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tbody>
+					<tr>
+						<td style="width: 260px;">
+							<h:form> 
+								<p:menu style="width: 260px; height: 651px;">
+							        <p:submenu label="Eventos">
+							            <p:menuitem value="Ver eventos" url="/views/admin/eventos/eventos.xhtml" />
+							            <p:menuitem value="Crear un evento" url="/views/admin/eventos/altaEvento.xhtml"/>
+							            <p:menuitem value="Crear evento combinado" url="/views/admin/eventos/altaEventoCombinado.xhtml"/>							            
+							        </p:submenu>
+							        <p:submenu label="Moderadores">
+							            <p:menuitem value="Ver moderadores" url="/views/admin/moderadores/moderadores.xhtml"/>
+							            <p:menuitem value="Crear un moderador" url="/views/admin/moderadores/altaModerador.xhtml"/>
+							        </p:submenu>
+							        <p:submenu label="Fuentes">
+							        	<p:menuitem value="Crear fuentes de información" url="/views/admin/fuentes/altaFuente.xhtml"/>
+							        </p:submenu>
+							    </p:menu>
+						    </h:form>
+						</td>
+						<td>
+							<p:panel style="height: 653px;" id="bodyPanelAdmin">
+								<table align="left" cellpadding="0" cellspacing="0" border="0" width="100%">
+									<tbody>
+										<tr>
+											<td width="80%" height="20">
+												<h2><ui:insert name="funcTitleAdmin">Titulo funcionalidad</ui:insert></h2>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<br/>
+								<h:form prependId="false">
+									<ui:insert name="bodyContent"></ui:insert>
+								</h:form>
+								<br/>
+								<ui:insert name="bodyFooter"></ui:insert>
+							</p:panel>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</ui:define>
+		
+	</ui:composition>
+</html>

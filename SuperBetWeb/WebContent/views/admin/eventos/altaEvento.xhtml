@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/admin/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitleAdmin">Crear un evento</ui:define>
+	
+		<ui:define name="bodyContent">
+			<table align="left" cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tbody>
+					<tr> 
+						<td width="50%" valign="top">
+							<h3 class="h3Class">Datos principales</h3>
+							<h:panelGrid id="grid1" columns="2" cellspacing="0" columnClasses="colClass1, colClass2, colClass1, colClass2"
+							styleClass="panelGridClass">
+								<h:column>
+									<h:outputText value="Ingrese el nombre del evento "/>
+								</h:column>
+								<h:column>
+									<p:inputText id="nombreEvento" value="#{gestionEvento.nombre}" required="true"/>
+								</h:column>
+								<h:column/>
+								<h:column>
+									<p:message for="nombreEvento"/>
+								</h:column>
+							</h:panelGrid>
+							<h:panelGrid id="grid2" columns="2" cellspacing="0" columnClasses="colClass1, colClass2, colClass1, colClass2"
+							styleClass="panelGridClass">
+								<h:column>
+									<h:outputText value="Seleccione el deporte"/>
+								</h:column>
+								<h:column>
+									<p:autoComplete id="deporteSelected"
+													value="#{coleccionesBean.deporte}" 
+													minQueryLength="1"
+													var="deporte"
+													itemLabel="#{deporte.name}"
+													itemValue="#{deporte}"
+													completeMethod="#{coleccionesBean.completeDeporte}"
+													effect="fade" 
+													converter="deporteConverter"
+													forceSelection="true"
+													selectListener="#{coleccionesBean.handleSelectDeporte}"
+													styleClass="textField"
+													required="true"/>
+								</h:column>
+								<h:column/>
+								<h:column>
+									<p:message for="deporteSelected"/>
+								</h:column>
+							</h:panelGrid>
+
+							<h:panelGrid id="grid34" columns="2" cellspacing="0" columnClasses="colClass1, colClass2, colClass1, colClass2"
+							styleClass="panelGridClass">
+								
+							<h:outputText value="Pais" />
+							<p:autoComplete id="paisSelectOneMenu" dropdown="true"
+								value="#{coleccionesBean.pais}"  minQueryLength="1"
+								var="pais" itemLabel="#{pais.name}" itemValue="#{pais}"
+								completeMethod="#{coleccionesBean.completePais}" effect="fade"
+								converter="paisConverter" forceSelection="true"
+								onSelectUpdate="messages" styleClass="textField" 
+								selectListener="#{coleccionesBean.handleSelectPais}"  />
+
+							</h:panelGrid>
+
+							<h:panelGrid id="grid3" columns="2" cellspacing="0" columnClasses="colClass1, colClass2, colClass1, colClass2"
+							styleClass="panelGridClass">
+								<h:column>
+									<h:outputText value="Seleccione la competición"/>
+								</h:column>
+								<h:column>
+									<p:autoComplete id="compSelected"
+													value="#{coleccionesBean.competicion}"
+													minQueryLength="1"
+													var="competicion"
+													itemLabel="#{competicion.nombre}"
+													itemValue="#{competicion}"
+													completeMethod="#{coleccionesBean.completeCompeticion}"
+													effect="fade"
+													converter="competicionConverter"
+													selectListener="#{coleccionesBean.handleSelectCompeticion}"
+													styleClass="textField"
+													required="true"/>
+								</h:column>
+								<h:column/>
+								<h:column>
+									<p:message for="compSelected"/>
+								</h:column>
+							</h:panelGrid>
+							<h:panelGrid columns="2" cellspacing="0" columnClasses="colClass1, colClass2"
+							styleClass="panelGridClass">
+								<h:outputText value="Ingrese la importancia"/>
+								<p:rating value="#{gestionEvento.importancia}" />
+							</h:panelGrid>
+							
+							<p:separator/>
+							
+							<h3 class="h3Class">¿Cuando ocurrirá?</h3>
+							<h:panelGrid id="grid4" columns="2" cellspacing="0" columnClasses="colClass1, colClass2, colClass1, colClass2"
+							styleClass="panelGridClass">
+								<h:column>
+									<h:outputText value="Seleccione fecha y hora de inicio"/>	
+								</h:column>
+								<h:column>
+									<p:calendar id="fechaInicio" value="#{gestionEvento.fechaInicio}" styleClass="textField" 
+									pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7" required="true"/>	
+									<span style="width:30px;"/>
+									<p:spinner value="#{gestionEvento.horaInicio}" min="0" max="23" size="2"/>
+									<span style="width:30px;"/>
+									<p:spinner value="#{gestionEvento.minInicio}" min="0" max="59" size="2"/>
+								</h:column>
+								<h:column/>
+								<h:column>
+									<p:message for="fechaInicio"/>
+								</h:column>
+							</h:panelGrid>
+							
+							<h:panelGrid id="grid5" columns="2" cellspacing="0" columnClasses="colClass1, colClass2, colClass1, colClass2"
+							styleClass="panelGridClass">
+								<h:column>
+									<h:outputText value="Seleccione fecha y hora de fin"/>			
+								</h:column>
+								<h:column>
+									<p:calendar id="fechaFin" value="#{gestionEvento.fechaFin}" styleClass="textField" 
+									pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7" required="true"/>		
+									<span style="width:30px;"/>
+									<p:spinner value="#{gestionEvento.horaFin}" min="0" max="23" size="2"/>
+									<span style="width:30px;"/>
+									<p:spinner value="#{gestionEvento.minFin}" min="0" max="59" size="2"/>	
+								</h:column>	
+								<h:column/>
+								<h:column>
+									<p:message for="fechaFin"/>		
+								</h:column>		
+							</h:panelGrid>						
+							
+						</td>
+						
+						<td width="50%" valign="top">
+							<h3>Ubicación del evento</h3>
+							<h:outputText value="Mueva el marcador a la posición del evento"/>
+							<p:gmap center="#{mapaBean.latitud}, #{mapaBean.longitud}" zoom="10" 
+									type="ROADMAP"	model="#{mapaBean.emptyModel}" 
+									style="width:540px;height:340px" 
+									markerDragListener="#{mapaBean.onMarkerDrag}" onMarkerDragUpdate="latlong" 
+									widgetVar="map"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:commandButton value="Guardar"
+											 action="#{gestionEvento.altaEvento}" 
+											 update="grid1 grid2 grid3 grid4 grid5 @parent"
+											 process="grid1 grid2 grid3 grid4 grid5 @parent"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</ui:define>
+		
+	</ui:composition>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/public/bodyLayout.xhtml">
+	<ui:define name="funcTitlePublic">
+		<h:outputText value="PAGINA INICIAL DEL USUARIO APOSTADOR"></h:outputText>
+	</ui:define>
+
+	<ui:define name="bodyContent">
+		<p:panel>
+		<table width="100%">
+			<tr>
+				<td width="250" style="vertical-align: top">
+				<p:accordionPanel
+						autoHeight="false" dynamic="true" cache="true"
+						style="vertical-align:top"
+						tabChangeListener="#{gestionApuesta.onTabChange}">
+						<p:tab title="Futbol" >
+							<p:tree value="#{gestionApuesta.rootFutbol}" var="node"
+								selectionMode="single"
+								selection="#{gestionApuesta.selectedNode}"
+								nodeSelectListener="#{gestionApuesta.onNodeSelect}"
+								update="tablaCalendarioResultadosPosibles, hayresultadosMsg">
+								<p:treeNode data="#{node}">
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</p:tab>
+						<p:tab title="Basquetbol">
+							<p:tree value="#{gestionApuesta.rootBasquetbol}" var="node"
+								selectionMode="single"
+								selection="#{gestionApuesta.selectedNode}"
+								nodeSelectListener="#{gestionApuesta.onNodeSelect}"
+								update="tablaCalendarioResultadosPosibles">
+								<p:treeNode data="#{node}">
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</p:tab>
+						<p:tab title="Automovilismo">
+							<p:tree value="#{gestionApuesta.rootAutomovilismo}" var="node"
+								selectionMode="single"
+								selection="#{gestionApuesta.selectedNode}"
+								nodeSelectListener="#{gestionApuesta.onNodeSelect}"
+								update="tablaCalendarioResultadosPosibles">
+								<p:treeNode data="#{node}">
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</p:tab>
+					</p:accordionPanel>
+				</td>
+				<td style="vertical-align: top">
+					<p:panel>
+						<h:panelGrid columns="2" cellspacing="5px">
+							<h3>TipoApuesta</h3>
+							<h:selectOneMenu title="seleccion el tipo de apuesta"
+									valueChangeListener="#{gestionApuesta.onSelectTipoApuesta}"
+									style="font-size:10pt" id="selectTipoApuesta">
+									<f:selectItems value="#{gestionApuesta.tiposApuesta}"
+										noSelectionValue="#{gestionApuesta.selectedTipoApuesta}"
+										var="tipoApuestaItem" itemLabel="#{tipoApuestaItem.name}"
+										itemValue="#{tipoApuestaItem.name}"
+										styleClass="comboBox ui-helper" />
+									<p:ajax update="tablaCalendarioResultadosPosibles, hayresultadosMsg" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</p:panel>
+					
+						<p:dataGrid id="tablaCalendarioResultadosPosibles"
+							var="tipoevento" value="#{gestionApuesta.calendarioTipoEventos}"
+							columns="2" paginator="false" effect="true"
+							style="width:100%; text-size:8pt; vertical-align:top">
+							<p:column>
+								<p:panel style="width:100%; align:center;">
+									<h:dataTable id="resultado" value="#{tipoevento.resultados}"
+										var="resultado" style="width:100%">
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="#{tipoevento.evento.nombre}" />
+												<br />
+												<h:outputText converter="dateConverter"
+													value="#{tipoevento.evento.inicio}" />
+											</f:facet>
+											<div style="display: inline;">
+												<h:commandButton style="width:95%; text-align:left;"
+													value="#{resultado.description}"
+													action="#{gestionApuesta.onSelectResult}"
+													update="carritoDataGrid">
+													<f:setPropertyActionListener
+														target="#{gestionApuesta.selectedTipoEvento}"
+														value="#{tipoevento}" />
+													<f:setPropertyActionListener
+														target="#{gestionApuesta.selectedResultado}"
+														value="#{resultado}" />
+												</h:commandButton>
+												<h:commandButton disabled="true" style="width:5%; text-align:right;"
+													value="#{resultado.cuota}"/>
+											</div>
+										</h:column>
+									</h:dataTable>
+								</p:panel>
+							</p:column>
+						</p:dataGrid>
+					
+				</td>
+				<td width="280" style="vertical-align: top">
+					<p:panel>
+						<h3>Ticket Apuestas / #{gestionApuesta.formaApuesta}</h3>
+					</p:panel>
+					<p:panel
+						id="carritoDataGrid"
+						style="font-size:9pt; text-align:centro; padding:0px;">
+						<h:dataTable id="resultadoSeleccionado"
+							var="resultadoSeleccionado"
+							value="#{gestionApuesta.carritoResultados}"
+							style="width:100%; text-size:8pt; vertical-align:top; border:1px">
+							<h:column>
+								<table style="border: 5px; border-color: white;">
+									<tr>
+										<td align="left" style="width: 90%;"><h:outputText
+												style="text-align:left"
+												value="#{gestionApuesta.carritoTipoEvento[resultadoSeleccionado.id].evento.nombre}" />
+										</td>
+										<td style="width: 10%">
+											<h:commandButton
+												image="/images/close.png"
+												action="#{gestionApuesta.onSelectCloseResult}"
+												update="carritoDataGrid totalesGrid">
+												<f:setPropertyActionListener
+													target="#{gestionApuesta.selectedTipoEvento}"
+													value="#{gestionApuesta.carritoTipoEvento[resultadoSeleccionado.id]}" />
+												<f:setPropertyActionListener
+													target="#{gestionApuesta.selectedResultado}"
+													value="#{resultadoSeleccionado}" />
+											</h:commandButton>
+										</td>
+									</tr>
+
+									<tr>
+										<td><h:outputText
+												value="#{gestionApuesta.carritoTipoEvento[resultadoSeleccionado.id].tipoApuesta.name}" />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<table>
+												<tr>
+													<td style="width:95%">
+														<h:outputText style="text-align:left;"
+															value="#{resultadoSeleccionado.description}" />
+													</td>
+													<td style="width:5%"> 
+														<h:outputText
+															style="text-align:right;"
+															value="#{resultadoSeleccionado.cuota}" />
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<p:separator></p:separator>
+							</h:column>
+						</h:dataTable>
+					</p:panel>
+					<p:panel>
+						<h:panelGrid id="totalesGrid" columns="2" style="width:100%">
+							<h:outputText style="font-size:9pt" value="Cuota total" />
+							<h:outputText style="font-size:9pt"
+								value="#{gestionApuesta.cuotaTotal}">
+								<f:convertNumber maxFractionDigits="2" />
+							</h:outputText>
+
+							<h:outputText style="font-size:9pt" value="Importe por apuesta" />
+							<h:inputText style="font-size:9pt"
+								value="#{gestionApuesta.montoApuesta}">
+								<f:ajax event="keyup" render="gananciaPosibleOutput"
+									listener="#{gestionApuesta.onKeyUpCalculateGananciaPosible}" />
+							</h:inputText>
+
+							<h:outputText style="font-size:9pt" value="Ganancia posible" />
+							<h:outputText style="font-size:9pt" id="gananciaPosibleOutput"
+								value="#{gestionApuesta.gananciaPosible}">
+								<f:convertNumber currencySymbol="$" maxFractionDigits="2"
+									type="currency" />
+							</h:outputText>
+						</h:panelGrid>
+						<h:commandButton style="font-size:9pt; width:100%;" value="Apostar"
+								action="#{gestionApuesta.onClickApostar}" update="totalesGrid" >
+						</h:commandButton>
+					</p:panel>
+				</td>
+			</tr>
+		</table>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

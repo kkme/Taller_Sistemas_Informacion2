@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/mainLayout.xhtml">
+
+		<ui:define name="pageTitle">SuperBet</ui:define>
+		
+		<ui:define name="pageHeader">
+			<p>TSI 2 - 2011</p>
+		</ui:define>
+
+		<ui:define name="body">
+		<p:panel>
+		<img style="-webkit-user-select: none"
+		src="http://www.ovaciondigital.com.uy/Images/11/ovacion/cintillo_elimin_2014.jpg"/>
+		</p:panel>
+		<p:panel>
+		<table style="width: 60%;">
+			<tr>
+				<td style="width: 300px; vertical-align:top;">
+					<p:panel>
+						<h3>Actualidad</h3>
+					</p:panel>
+					<p:panel>
+						<p:imageSwitch effect="fade" >  
+	    					<p:graphicImage height="330px" width="280px" value="/images/welcome/clasico.jpg" />
+	    					<p:graphicImage height="330px" width="280px" value="/images/welcome/formula1.jpg" />
+	    					<p:graphicImage height="330px" width="280px" value="/images/welcome/nba.jpg" />
+	    					<p:graphicImage height="330px" width="280px" value="/images/welcome/boxeo.jpg" />  
+	    				</p:imageSwitch>
+	    			</p:panel>  
+				</td>
+				<td style="width: 60%; vertical-align:top;">
+					<p:panel>
+						<h3 width="100%">Mapa de Eventos</h3>
+					</p:panel>
+					<p:panel styleClass="panelCentrado">
+						<p:gmap center="-34.8442, -56.16783" zoom="10" type="HYBRID"
+							widgetVar="map" style="width:600px;height:300px;margin:20px;"
+							model="#{mapaBean.listaEventos}"  />
+					</p:panel>
+				</td>
+				<td style="width: 100%; vertical-align:top;">
+					<p:panel>			
+						<h3>Últimos Resultados</h3>
+					</p:panel>
+					<h:panelGroup>
+						<ui:include
+							src="/views/public/resultados/ultimosResultadosIncluded.xhtml" />
+					</h:panelGroup>
+				</td>
+			</tr>
+		</table>
+		</p:panel>
+	</ui:define>
+		
+	</ui:composition>
+</html>

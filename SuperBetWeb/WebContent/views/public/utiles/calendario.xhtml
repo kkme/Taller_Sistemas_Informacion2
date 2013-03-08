@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitlePublic">
+			<h:outputText value="Calendario deportivo" ></h:outputText>
+		</ui:define>
+		
+		<ui:define name="bodyContent">
+			<p:panel>
+				<h3 align="left">Calendario de Eventos</h3>
+			</p:panel>
+			<p:panel> 	
+				<table width="100%">
+					<tbody>
+						<tr>
+							<td align="center" valign="top" width="80%">
+								<p:schedule value="#{gestionAgenda.eventModel}"
+									allDaySlot="false" locale="es" 
+	                				editable="true" widgetVar="eventSchedule"
+	                				draggable="false" resizable="false"
+					                onEventSelectUpdate="eventDetails" onEventSelectComplete="javascript:onSelectScheduledEvent();"
+					                aspectRatio="2.2" styleClass="scheduleClass"> 
+					            </p:schedule>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</p:panel>
+		    <p:dialog widgetVar="eventDialog" id="selectedEventDialog" header="Detalles del evento" 
+		    	showEffect="clip" hideEffect="clip">
+		    	<h:panelGrid id="eventDetails" columns="1">
+		            <span style="font-size: 12px; font-weight: bold;" id="titleDialog"></span>
+		            <table width="80%" cellspacing="10">
+		            	<tbody>
+		            		<tr>
+		            			<td valign="top" align="center">
+		            				<span style="font-size: 12px;">Comienza: </span>
+		            			</td>
+		            			<td>
+		            				<span style="font-size: 12px;" id="dateDialog"></span>
+		            			</td>
+		            		</tr>
+		            	</tbody>
+		            </table>
+	            </h:panelGrid>
+		    </p:dialog>
+			
+		</ui:define>
+
+	</ui:composition>
+</html>

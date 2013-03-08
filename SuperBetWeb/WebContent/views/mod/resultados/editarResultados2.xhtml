@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/mod/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitleAdmin">Editar resultados de eventos (2/2)</ui:define>
+		<ui:define name="botonera">
+
+			<h:panelGrid columns="3" cellpadding="5px;">
+				<p:commandButton value="Anterior" action="anterior"/>
+				<p:commandButton value="Siguiente" action="siguiente" disabled="true"/>
+			</h:panelGrid>
+
+		</ui:define>
+	
+		<ui:define name="bodyContent">
+
+					
+					<h:outputText value="#{gestionEvento.eventoSelected.nombre}" style="font-weight: bold;"/>
+					 <p:growl id="msgs" />  
+					 <p:ajaxStatus style="width:16px;height:16px;"/>  
+		<h:panelGrid columns="2">	
+		
+		<h:panelGroup>    
+			    <h:panelGrid columns="2">
+				
+					
+					<h:outputText value="Inicio Apuestas"/>	<p:calendar value="#{gestionResultado.inicioPerApuesta}"  required="true" styleClass="textField" 
+								pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" />	
+				
+					<h:outputText value="Fin Apuestas"/><p:calendar value="#{gestionResultado.inicioPerApuesta}"  required="true" styleClass="textField" 
+								pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" />	
+								
+								
+						<!-- 
+					<p :inputText id="txtFini" value="# { gestionResultado.inicioPerApuesta}" required="true">
+					            <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+					            <p:watermark value="dd-MM-yyyy HH:mm" for="txtFini" />
+					< /p:inputText>
+					HAY QUE VER COMO CONTEMPLAR LA HORA
+					 -->
+					
+					<!-- < p :inputText id="txtFfin" value="# { gestionResultado.finPerApuesta}" required="true">
+					            <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+					            <p:watermark value="dd-MM-yyyy HH:mm" for="txtFfin" />
+					< /p:inputText>
+					HAY QUE VER COMO CONTEMPLAR LA HORA
+					 -->
+			</h:panelGrid>
+			 		
+				
+			    <p:panel header="Nuevo Resultado"> 
+					 <h:panelGrid columns="2" id="grid">  
+			            <h:outputLabel value="Cuota : *" />  
+			            <p:inputText id="inputCuota" value="#{gestionResultado.nuevoResultado.cuota}" required="true" >
+			            <f:validateDoubleRange for="inputCuota"  minimum="1.0" maximum="2.0" />
+			            </p:inputText>
+			
+			            <h:outputLabel value="Descripcion : *" />  
+			            <p:inputText required="true" value="#{gestionResultado.nuevoResultado.description}" />
+			
+			            <p:commandButton value="Agregar" update="panelResultados msgs @parent" process="panelResultados msgs @parent"
+			                          action="#{gestionResultado.reinit}" actionListener="#{gestionResultado.agregarResultado}">  
+			
+			            </p:commandButton>
+			            
+			            <p:commandButton value="Resetear" update="panelResultados msgs @parent" process="panelResultados msgs @parent"
+			                          action="#{gestionResultado.reinit}" actionListener="#{gestionResultado.borrarResultados}">  
+			
+			            </p:commandButton>    
+			        </h:panelGrid>  
+				</p:panel>	
+					
+			</h:panelGroup>
+					
+					
+				<h:panelGroup >	
+					
+				<p:outputPanel id="panelResultados" >
+					
+					<p:dataTable value="#{gestionResultado.resultados}" var="res"  >  
+			           <p:column>  
+			                <f:facet name="header">  
+			                    <h:outputText value="descripcion" />  
+			                </f:facet>  
+			                <h:outputText value="#{res.description}" />  
+			            </p:column>  
+			            <p:column>  
+			                <f:facet name="header">  
+			                    <h:outputText value="Cuota" />  
+			                </f:facet>  
+			                <h:outputText value="#{res.cuota}" />  
+			            </p:column>  
+			 
+			         </p:dataTable>  
+					
+					</p:outputPanel>
+				
+				
+				</h:panelGroup>	
+				
+		</h:panelGrid>		
+					
+		</ui:define>
+		
+		<ui:define name="bodyFooter">
+		<h:form>
+			<table align="center" cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tbody>
+					<tr>
+						<td width="92%"></td>
+						<td width="8%" valign="bottom" ><p:commandButton ajax="false" value="Guardar" action="#{gestionResultado.altaResultados}"></p:commandButton></td>
+					</tr>
+				</tbody>
+			</table>
+		</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/admin/bodyLayout.xhtml">
+
+	<ui:define name="funcTitleAdmin">Crear un moderador</ui:define>
+
+	<ui:define name="bodyContent">
+		
+			<table align="left" cellpadding="0" cellspacing="0" border="0"
+				width="100%">
+				<tbody>
+					<tr>
+						<td width="80%" valign="top">
+					    	<p:dataTable var="moderador" value="#{moderadorMB.moderadores}"
+				                 id="moderadoresAgregados" paginator="true" rows="12"
+				                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+						        <p:column>
+			                    	<f:facet name="header">  
+                 						<h:outputText value="Nombres" />  
+            						</f:facet>  
+				                    <h:outputText value="#{moderador.names}"  />
+						        </p:column>
+  						        <p:column>
+  			                    	<f:facet name="header">  
+                 						<h:outputText value="Apellidos" />  
+            						</f:facet>  
+				                    <h:outputText value="#{moderador.surnames}"  />
+						        </p:column>
+  						        <p:column>
+  			                    	<f:facet name="header">  
+                 						<h:outputText value="Username" />  
+            						</f:facet>  
+				                    <h:outputText value="#{moderador.userName}"  />
+						        </p:column>
+   						        <p:column>
+  			                    	<f:facet name="header">  
+                 						<h:outputText value="Password" />  
+            						</f:facet>  
+				                    <h:outputText value="#{moderador.password}"  />
+						        </p:column>
+   						        <p:column>
+   						        	<p:commandLink ajax="false" action="#{moderadorMB.editarModerador}">
+				                    	<h:outputText value="Editar moderador"/>
+				                    	<f:setPropertyActionListener value="#{moderador}" 
+				                    		target="#{moderadorMB.moderadorSelected}"></f:setPropertyActionListener>
+				                    </p:commandLink>
+						        </p:column>
+						        <p:column style="width: 30px">
+						        	<p:commandButton image="ui-icon ui-icon-closethick" style="heigth:8px; width: 30px; font-size:7px;">
+						        	</p:commandButton>
+						        </p:column>
+						    </p:dataTable>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		
+	</ui:define>
+</ui:composition>
+</html>

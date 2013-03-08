@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+	<ui:define name="pageTitle">Registro de Usuario</ui:define>
+
+	<ui:define name="bodyContent">
+		<p:panel header="Regístrese" footer="Todos los campos son obligatorios.">
+			<table>
+				<tr>
+					<td>
+						<h:panelGrid id="grid1" styleClass="bodyTextClass" columns="2"
+							cellspacing="20">
+							<h:outputText value="Nombres" />
+							<p:inputText value="#{usuarioMB.newUser.names}" />
+
+							<h:outputText value="Apellidos" />
+							<p:inputText value="#{usuarioMB.newUser.surnames}"/>
+
+							<h:outputText value="Cédula" />
+							<p:inputText value="#{usuarioMB.newUser.id_card}" />
+
+							<h:outputText value="Confirmar cédula" />
+							<p:inputText value="#{usuarioMB.confirmDocInput}" />
+						</h:panelGrid>
+					</td>
+					<td>
+						<h:panelGrid id="grid2" styleClass="bodyTextClass" columns="2"
+							cellspacing="20">
+							<h:outputText value="E-Mail" />
+							<p:inputText value="#{usuarioMB.newUser.email}" />
+
+							<h:outputText value="Telefono" />
+							<p:inputText value="#{usuarioMB.newUser.phone}" />
+
+							<h:outputText value="Pais" />
+							<h:selectOneMenu valueChangeListener="#{usuarioMB.onSelectPais}"
+									style="font-size:10pt" styleClass="comboBox ui-helper">
+									<f:selectItems value="#{coleccionesBean.paises}"
+										var="pais" itemLabel="#{pais.name}"
+										itemValue="#{pais.name}" />
+							</h:selectOneMenu>
+
+							<h:outputText value="Ciudad" />
+							<p:inputText value="#{usuarioMB.newUser.city}" />
+						</h:panelGrid>
+					</td>
+					<td>
+						<h:panelGrid id="grid3" styleClass="bodyTextClass" columns="2"
+							cellspacing="20">
+							<h:outputText value="Nombre de Usuario" />
+							<p:inputText value="#{usuarioMB.newUser.userName}" />
+
+							<h:outputText value="Contraseña" />
+							<p:password value="#{usuarioMB.newUser.password}"
+								feedback="true" />
+
+							<h:outputText value="Confirmar Contraseña" />
+							<p:password value="#{usuarioMB.confirmPassInput}" feedback="false" />
+
+							<h:commandButton value="Guardar" action="#{usuarioMB.altaUsuario}" />
+						</h:panelGrid>
+					</td>
+				</tr>
+			</table>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+</html>

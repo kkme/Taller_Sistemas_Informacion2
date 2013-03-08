@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/bodyLayout.xhtml">
+		
+		<ui:define name="funcTitlePublic">
+		<h:outputText value="Realizar Apuestas" ></h:outputText>
+		</ui:define>
+		
+		<ui:define name="bodyContent"> 	
+			<f:metadata>  
+		       <f:event type="preRenderView" listener="#{gestionApuesta.ex_cargarEventosExternos}"></f:event>  
+		    </f:metadata>  
+			
+			
+		<p:dataGrid var="ev" value="#{gestionApuesta.ex_eventos}" columns="3"  
+        rows="12" paginator="true" effect="true"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="9,12,15">  
+          
+        <p:column>  
+            <p:panel header="#{ev.evento.nombre}" style="text-align:center">  
+                <h:panelGrid columns="1" style="width:100%">  
+                    
+                    
+                    	<p:calendar disabled="true"  value="#{ev.evento.inicio}" styleClass="textField" 
+								pattern="dd/MM/yyyy" locale="uy" converter="dateConverter" size="7"></p:calendar>	
+                    
+                    
+                    
+                      
+                    <p:commandLink  title="Seleccionar" oncomplete="carDialog.show()"  update="carDetail" >  <!-- LUEGO DESPLEGARA UN POP UP PARA ELEGIR RESULTADO Y MONTO -->
+                    <!-- TAL COMO ESTA EN EL DATAGRID DE PRIMEFACE SHOWCASE -->
+                    	<p:graphicImage value="/images/search.png"/>
+                        <f:setPropertyActionListener value="#{ev}"   
+                                target="#{gestionApuesta.ex_selectedEvent}" />  
+                    </p:commandLink>  
+                    
+                    
+                </h:panelGrid>  
+            </p:panel>  
+        </p:column>  
+  
+   		</p:dataGrid>  
+			
+			
+			
+			
+	<p:dialog header="Car Detail" widgetVar="carDialog" width="400" height="400" modal="true">  
+        <p:outputPanel id="carDetail" style="text-align:center;" layout="block">  
+          
+            <h:panelGrid  columns="2" cellpadding="5">  
+                
+                <h:outputLabel for="year" value="   " />  
+                <h:outputText id="year" value="#{gestionApuesta.ex_selectedEvent.evento.competicion.nombre}" />
+                
+                
+                <h:outputLabel for="modelNo" value="Evento " />  
+                <h:outputText id="modelNo" value="#{gestionApuesta.ex_selectedEvent.evento.nombre}" />  
+                
+            </h:panelGrid>
+				<!-- SUPONGO QUE VIENEN LOS RESULTADOS DENTRO DE LOS EVENTOS -->
+				<p:dataTable var="res" value="#{gestionApuesta.ex_selectedEvent.resultados}" 
+					selection="#{gestionApuesta.ex_selectedResult}" selectionMode="single">
+
+					<f:facet name="header">  
+            			Posibles Resultados  
+        			</f:facet>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Resultado" />
+						</f:facet>
+						<h:outputText value="#{res.description}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Cuota" />
+						</f:facet>
+						<h:outputText value="#{res.cuota}" />
+					</p:column>
+					
+					
+
+				</p:dataTable>
+
+			<h:outputText value="Monto: " /> <h:inputText /> <h:commandButton value="apostar" />
+			
+			</p:outputPanel>  
+    </p:dialog>  
+  
+			
+			
+			
+			
+		</ui:define>
+
+	</ui:composition>
+</html>

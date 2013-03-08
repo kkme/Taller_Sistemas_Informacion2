@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/mod/bodyLayout.xhtml">
+
+		<ui:define name="funcTitleAdmin">
+		<h:outputText value="Pagar Apuestas Combinadas" ></h:outputText>
+		</ui:define>
+
+		<ui:define name="bodyContent"> 
+		
+			<f:metadata>  
+		       <f:event type="preRenderView" listener="#{gestionEvento.pc_cargarCombinaciones}"></f:event>  
+		    </f:metadata>  
+		
+	<table align="left" cellpadding="0" cellspacing="25" border="0" width="100%">
+		<tbody>
+			<tr> 
+				<td width="30%" valign="top">
+		
+				<p:dataTable value="#{gestionEvento.pc_combinaciones}" rendered="#{not empty gestionEvento.pc_combinaciones}" var="combinada">
+					<p:column>
+						<f:facet name="header">Nombre</f:facet>
+						<h:outputText value="#{combinada.nombre}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">Descripción</f:facet>
+						<h:outputText value="#{combinada.descripcion}" />
+					</p:column>
+	
+					<p:column>
+						<p:commandLink value="seleccionar" update="detallesCombinacion" >
+							<f:setPropertyActionListener target="#{gestionEvento.pc_selectedComb}" value="#{combinada}" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+
+	
+	
+		<p:outputPanel id="detallesCombinacion"  rendered="#{not empty gestionEvento.pc_combinaciones}" >
+			<p:fieldset legend="Detalles"  rendered="#{gestionEvento.pc_selectedComb ne null}" >
+				<h:outputText value="#{gestionEvento.pc_selectedComb.nombre}" />
+				<h:outputText value="#{gestionEvento.pc_selectedComb.descripcion}"/>
+				<p:dataList value="#{gestionEvento.pc_selectedComb.tipo_eventos}" var="te" type="ordered" itemType="A">  
+   					 #{te.evento.nombre}, #{(te.fuePagada ne null and te.fuePagada)?'Ya Pagada, ganador ':'Aún no paga'}  #{te.ganador.description}
+				</p:dataList>  
+					
+			</p:fieldset>
+		</p:outputPanel>
+	
+		</td>
+		<td>
+
+			<h:outputText rendered="#{ empty gestionEvento.pc_combinaciones}" 
+				value="No existen combinaciones para pagar" style="font-size:20px;" />
+		</td>
+		</tr>
+		
+		</tbody>
+		</table>
+
+		<p:commandButton value="Pagar" disabled="#{empty gestionEvento.pc_combinaciones}"
+			action="#{gestionEvento.pc_pagarApuestaCombinada}"
+			update="messagesMod">
+			
+			<p:tooltip value="Para pagar todas deben haberse pagado antes"
+				showEffect="fade" hideEffect="fade" showEffectLength="1000"
+				hideEffectLength="100" />
+
+		</p:commandButton>
+
+	</ui:define>
+			
+	</ui:composition>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+
+		<ui:define name="funcTitlePublic">
+		<h:outputText value="Depositar Dinero en cuenta" ></h:outputText>
+		</ui:define>
+
+		<ui:define name="bodyContent">
+		
+
+		
+
+	
+		<h:panelGrid columns="3" >
+			<h:panelGroup style="width:20%" > 
+					<fieldset  style="font-size: 10px;">
+					    <legend>Leame: </legend>
+					    Será redirigido a Pay Pal para abonar.<br/>
+						El usuario sandbox es tsi204, password: paypaltsi204<br/>
+						Usuario Pagador es tsi204_1316180327_per@gmail.com<br/>
+						y su password es tsi204comprador<br/>
+						<br/>
+						Member SANDBOX<br/>
+						delbetu@gmail.com<br/>
+						tsi204@fing.edu.uy<br/>
+					  </fieldset>  
+			</h:panelGroup>
+			<h:panelGroup  style="width:60%">
+					<p:fieldset id="depositarDineroPanel"  rendered="#{param.transaction eq null}" >
+
+						<h:panelGrid columns="3" >
+						<h:outputText value="Monto a Depositar: " /> <p:inputText id="txtMonto" value="#{usuarioMB.txtMonto}" /> <h:message for="txtMonto" />
+						<h:outputText value="Id Pay Pal: " /> <p:inputText  id="txtEmailPagador" value="#{usuarioMB.txtEmailPagador}"/> <h:message for="txtEmailPagador" />
+						</h:panelGrid>
+						<p:commandButton value="Depositar" action="#{usuarioMB.depositarDinero}" />
+
+					</p:fieldset>
+					
+					<p:fieldset id="transaccionExitosaPanel" rendered="#{param.transaction ne null and param.transaction }"  >
+					<h2>TRANSACCION EXITORA</h2>
+					</p:fieldset>
+					
+					<p:fieldset id="transaccionErrorPanel" rendered="#{param.transaction ne null and ! param.transaction}">
+					<h2>TRANSACCION CANCELADA</h2>
+					</p:fieldset>
+			</h:panelGroup>
+			</h:panelGrid>
+			
+		</ui:define>
+		
+	</ui:composition>
+</html>

@@ -1,0 +1,341 @@
+.borderTop {
+	border-top-width: 2px; border-top-style: solid; border-top-color: #666666;
+}
+
+h1 {
+	font-size: 26px;
+	font-weight: bold;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	height: 30px;
+	font-size: 30px;
+	vertical-align: top;
+}
+
+h2 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+h3 {
+	margin-top: 0px;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+
+h4 {
+	font-size: 13px;
+	font-weight: bold;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.textField {
+	font-size: 13px;
+}
+
+.textField2 {
+	font-size: 11px;
+}
+
+html body.yui-skin-sam ul.ui-autocomplete li.ui-menu-item a.ui-corner-all {
+	font-size: 13px;
+}
+
+html body.yui-skin-sam div#ui-datepicker-div.ui-datepicker {
+	font-size: 12px;
+}
+
+html body.yui-skin-sam table tbody tr td div#moduleTitle.ui-panel div#moduleTitle_content.ui-panel-content {
+	height: 30px;
+}
+
+html body.yui-skin-sam table tbody tr td div#moduleTitle.ui-panel div#moduleTitle_content.ui-panel-content h1 {
+	margin-top: 0px;
+}
+
+
+html body.yui-skin-sam table tbody tr td div#j_idt41.ui-panel div#j_idt41_content.ui-panel-content {
+	height: 20px;
+}
+
+html body.yui-skin-sam table tbody tr td div#footerPanel.ui-panel div#footerPanel_content.ui-panel-content {
+	height: 20px;
+}
+
+html body.yui-skin-sam table tbody tr td.textField table tbody tr td div#bodyPanelAdmin.ui-panel div#bodyPanelAdmin_content.ui-panel-content form#functForm table tbody tr td table tbody tr td button {
+	font-size: 13px;
+	font-weight: bold;
+	width: 80px;
+}
+
+html body.yui-skin-sam table tbody tr td.textField table tbody tr td div#bodyPanelAdmin.ui-panel div#bodyPanelAdmin_content.ui-panel-content form#functForm table tbody tr td div {
+	font-size: 13px;
+}
+
+html body.yui-skin-sam table tbody tr td.textField table tbody tr td div#bodyPanelAdmin.ui-panel div#bodyPanelAdmin_content.ui-panel-content form#functForm table tbody tr {
+	padding-bottom: 0px;
+}
+
+html body.yui-skin-sam table tbody tr td.textField table tbody tr td div#bodyPanelAdmin.ui-panel div#bodyPanelAdmin_content.ui-panel-content form#functForm table tbody tr td button {
+	font-size: 13px;
+	font-weight: bold;
+	width: 80px;
+}
+
+html body.yui-skin-sam table tbody tr td div#moduleTitle.ui-panel div#moduleTitle_content.ui-panel-content {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+html body.yui-skin-sam table tbody tr td div#footerPanel.ui-panel div#footerPanel_content.ui-panel-content {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+html body.yui-skin-sam table tbody tr td.textField table tbody tr td div#bodyPanelAdmin.ui-panel div#bodyPanelAdmin_content.ui-panel-content form#functForm table tbody tr td div#functForm:participantes.ui-datatable table tbody#functForm:participantes_data.ui-datatable-data tr#functForm:participantes_row .ui-widget-content td.ui-editable-column {
+	padding-top: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.countryFlagClass {
+	padding-right: 10px;
+}
+
+.subtitular{
+width:100%;
+background-color:black;
+align:left;
+color:FFCC00;
+}
+
+.subMenuIzq{
+width:100px;
+background-color:black;
+align:left;
+color:FFFFFF;
+height:220px;
+font-size:11px;
+vertical-align: middle;
+ text-align: left;
+ margin:3px;
+ padding:3px;
+ border:3px;
+}
+
+.subMenuIzq a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.subMenuIzq a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+.subMenuIzq a:active, a:focus {
+    outline: medium none;
+}
+
+.comboBox {
+-moz-background-clip: border;
+    -moz-background-origin: padding;
+    -moz-background-size: auto auto;
+    background-attachment: scroll;
+    background-color: #555555;
+    background-image: url("images/ui-bg_glass_20_555555_1x400.png.jsf?ln=primefaces-ui-darkness");
+    background-position: 50% 50%;
+    background-repeat: repeat-x;
+    border-bottom-color: #666666;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: #666666;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: #666666;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: #666666;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: #EEEEEE;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: auto;
+    -moz-border-radius-bottomleft: 6px;
+    -moz-border-radius-bottomright: 6px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+	height: 28px;
+	font-size:13px;
+}
+
+select {
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #555;
+  font-size: inherit;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html body.yui-skin-sam table tbody tr td form div div.ui-widget {
+	font-size: 12px;
+}
+
+html body.yui-skin-sam table tbody tr td table tbody tr td form#publicLoginForm div#publicLoginPanel.ui-panel div#publicLoginPanel_content.ui-panel-content {	
+	font-size: 12px;
+}
+
+.publicHeaderClass {
+	height: 80px; 
+	vertical-align: top; 
+	border: none;
+}
+
+.publicBodyClass {
+	height: 850px; 
+	vertical-align: top; 
+	border: none;
+	background: none;
+}
+
+html body.yui-skin-sam table tbody tr td table tbody tr td form#publicLoginForm div#publicLoginPanel.ui-panel {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+html body.yui-skin-sam table tbody tr td div#publicFooterPanel.ui-panel div#publicFooterPanel_content.ui-panel-content {
+	vertical-align: top;
+	font-size: 12px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.publicFooterClass {
+	height: 30px;
+}
+
+.commandButtonClass {
+	font-size: 12px;
+	height: 25px;
+}
+
+.bodyTextClass {
+	font-size: 12px;
+}
+
+.h3Class {
+	font-size: 14px;
+	height: 30px;
+}
+
+.menuClass {
+	border: none;
+	background: none;
+	font-size: 14px;
+}
+
+.ui-panel .ui-panel-content {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.ui-datatable .ui-datatable-data td {
+	border: none;
+}
+
+.noticiasTable {
+	width: 580px;
+}
+
+.ui-paginator {
+	font-size: 10px;
+}
+
+.fc .fc-grid td {
+	background-image: none;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+	font-size: 12px;
+}
+
+.colClass1 {
+	width: 200px;
+	vertical-align: top;
+}
+
+.colClass2 {
+	width: 300px;
+	vertical-align: top;
+}
+
+.panelGridClass {
+	height: 56px;
+}
+
+.colLogin1 {
+	width: 100px;
+}
+
+.colLogin2 {
+	width: 450px;
+}
+
+.colTitle1 {
+	width: 40px;
+}
+
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+    -moz-border-radius-bottomleft: 0;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    -moz-border-radius-bottomright: 0;
+}
+
+/* Otros arreglos en algunas tablas */
+
+#eventosAgregados .ui-paginator-bottom {
+	display: none;
+}
+
+#moderadoresAgregados .ui-paginator-bottom {
+	display: none;
+}
+
+.ui-widget-content {
+	background-image: none;
+}

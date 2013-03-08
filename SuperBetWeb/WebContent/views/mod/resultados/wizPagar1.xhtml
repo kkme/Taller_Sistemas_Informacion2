@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition >
+
+		<h:outputText value="Seleccione Evento" /> 
+		
+	<h:panelGrid columns="2"  >
+
+    	<p:dataTable var="evento" value="#{gestionEvento.eventos}"
+			id="eventosAgregados" paginator="true" rows="4"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+			
+		<p:column>
+                 <f:facet name="header">  
+           			<h:outputText value="Nombre" />  
+      			 </f:facet>  
+                  <h:outputText value="#{evento.nombre}"  />
+        </p:column>
+        
+        <p:column>
+                 <f:facet name="header">  
+           			<h:outputText value="Fecha" />  
+      			 </f:facet>  
+                  <h:outputText value="#{evento.inicio}">
+                  	<f:converter converterId="dateConverter"></f:converter>
+                  </h:outputText>
+        </p:column>
+        
+		<p:column>
+                  <f:facet name="header">  
+        				<h:outputText value="Competicion" />  
+      			  </f:facet>  
+                  <h:outputText value="#{evento.competicion.nombre}"  />
+        </p:column>
+			
+		<p:column>
+		       	<p:commandLink action="#{moderadorMB.pagar_cargarResultados}"  process="@this panelSelectdEvent" update="panelSelectdEvent tabwizard2" >
+                  	<h:outputText value="seleccionar"/> 
+                  	<f:setPropertyActionListener target="#{moderadorMB.pagar_selectedEvent}" value="#{evento}" />
+                 </p:commandLink>
+        </p:column>
+
+		</p:dataTable>
+		
+		<p:panel id="panelSelectdEvent" >
+		<h:outputText value="Evento Seleccionado"/>
+		<h:panelGrid columns="2" >
+		<h:outputText value="Nombre" />
+		<h:inputText readonly="true" value="#{moderadorMB.pagar_selectedEvent ne null ? moderadorMB.pagar_selectedEvent.nombre:''}" />
+		</h:panelGrid>
+		</p:panel>
+
+</h:panelGrid>
+		
+	</ui:composition>
+</html>

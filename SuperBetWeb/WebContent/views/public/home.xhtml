@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/public/bodyLayout.xhtml">
+
+		<ui:define name="funcTitlePublic">
+			<h:outputText value="PAGINA INICIAL DEL USUARIO APOSTADOR" ></h:outputText>
+		</ui:define>
+				
+		<ui:define name="bodyContent">
+			<f:metadata>  
+		    	<f:event type="preRenderView" listener="#{documentsTreeController.construirTree()}"></f:event>  
+		    </f:metadata>
+		    <p:panel>
+			<table cellspacing="10" cellpadding="0">
+				<tbody>
+					<tr>
+						<td width="50%" valign="top" class="commandButtonClass" align="left">
+							<p:panel>
+								<h:panelGrid style="align:left; height: 40px;" columns="2" columnClasses="colTitle1" >
+									<p:graphicImage url="/images/iconos/rss-icon.png" height="25" width="25"/>
+									<h3>Novedades</h3>
+								</h:panelGrid>
+							</p:panel>
+							<p:panel>
+								<table>
+									<tr>
+										<td width="90%">
+											<h3>Ahora usted puede apostar desde su celular!</h3>
+											<h4>Superbet ha hecho para usted una aplicación<br></br>
+											para que pueda apostar no importa donde se encuentre</h4>
+											<br/>
+											<h:commandLink style="font-size:11px;" action="http://www.superbetweb/descargas/superbetandroid?id=12d8a62e48">
+												<h:outputText  value="Descargue la aplicación"></h:outputText>
+											</h:commandLink>
+										</td>
+										<td>
+											<p:graphicImage url="/images/iconos/android.png" height="100" width="100"></p:graphicImage>
+										</td>
+									</tr>
+								</table>								
+							</p:panel>
+							<br/>
+							<p:panel> 
+								<h:panelGrid style="align:left; height: 40px;" columns="2" columnClasses="colTitle1" >
+									<p:graphicImage url="/images/iconos/video.png" height="25" width="25"/>
+									<h3>Videos destacados</h3>
+								</h:panelGrid>
+							</p:panel>	
+							<p:panel>
+								<p:dataGrid value="#{gestionFuente.videosDestacados}" var="video" columns="2">
+									<div style="height: 250px; width: 300px; vertical-align: top;">
+										<iframe height="200" width="300" src="#{video.html}" frameborder="0">
+										</iframe>	
+										<h:outputText style="font-size: 10px;" value="#{video.nombre}"/>
+									</div>				
+								</p:dataGrid>		
+							</p:panel>
+							<br/>					
+							<p:panel>
+								<h:panelGrid style="align:left; height: 43px;" columns="2" columnClasses="colTitle1">
+									<p:graphicImage url="/images/iconos/rss-icon.png" height="25" width="25"/>
+									<h3>Noticias</h3>
+								</h:panelGrid>
+							</p:panel>
+							<p:panel>
+								<h:panelGrid columns="2" cellpadding="10">
+									<p:inputText size="30" value="#{gestionFuente.criterioBusqueda}"/>
+									<p:commandButton action="#{gestionFuente.buscarNoticias}" value="Buscar" update="noticiasPortada"></p:commandButton>
+								</h:panelGrid>
+								<p:dataTable
+									style="width:100%;"
+						    		styleClass="noticiasTable"
+						    		var="noticia" value="#{gestionFuente.noticiasPortada}" 
+						    		id="noticiasPortada" 
+						    		paginator="true" 
+						    		rows="4"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+									<p:column>
+										<table cellpadding="0" cellspacing="0" style="border:0px;">
+											<tbody>
+												<tr>
+													<td height="10px" valign="top">
+														<h4><h:outputText value="#{noticia.titulo}"/></h4>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<table>
+															<tbody>
+																<tr>
+																	<td width="10%"></td>
+																	<td width="90%"><h:outputText styleClass="textField2" value="#{noticia.contenido}"></h:outputText></td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<h:outputLink style="font-size: 10px;" value="#{noticia.link}">
+															<h:outputText style="font-size: 10px;" value="#{noticia.nombreFuente}"/>  
+														</h:outputLink>
+														<h:outputText style="font-size: 10px;" value=" - #{noticia.fechaPublicacion}"/>  
+													</td>
+												</tr>
+											</tbody>
+										</table>
+						        	</p:column>
+								</p:dataTable>
+							</p:panel>
+						</td>
+						<td width="50%" valign="top" class="commandButtonClass" align="left">
+							<p:panel>
+								<h:panelGrid style="align:left; height: 43px;" columns="2" columnClasses="colTitle1">
+									<p:graphicImage url="/images/iconos/uruflag.jpg" height="25" width="25"/>
+									<h3>Eventos Locales</h3>
+								</h:panelGrid>
+							</p:panel>
+							
+								<p:treeTable value="#{documentsTreeController.rootLocal}" var="documentLocal" expanded="true">
+									<p:column>
+										<f:facet name="header">
+											&nbps;
+										</f:facet>
+										<h:outputText value="#{documentLocal.categoria}" />
+									</p:column>
+	
+									<p:column>
+										<f:facet name="header">
+											Evento
+										</f:facet>
+											<h:outputText value="#{documentLocal.evento.nombre}" />
+									</p:column>
+	
+									<p:column>
+										<f:facet name="header">
+											Fecha
+										</f:facet>
+										<h:outputText value="#{documentLocal.evento.inicio}"
+										converter="dateConverterParaHistorial" />
+									</p:column>
+									
+									<p:column>
+										<f:facet name="header">
+											Ubicación
+										</f:facet>
+										<h:panelGrid columns="2" >
+	           								<p:gmap
+												center="#{documentLocal.evento.ubicacion.latitud}, #{documentLocal.evento.ubicacion.longitud}"
+												mapTypeControl="false" navigationControl="false"
+												draggable="true" disableDoubleClickZoom="true" zoom="15"
+												type="ROADMAP" style="width:200px;height:100px"
+												rendered="#{documentLocal.evento ne null}">
+											</p:gmap>
+											<h:button title="Ver Mapa" image="/images/iconos/earthicon.png" outcome="mapa" 
+												rendered="#{documentLocal.evento ne null}"/>
+										</h:panelGrid>
+									</p:column>
+								</p:treeTable>
+
+							<br/>
+							<p:panel>
+								<h:panelGrid style="align:left; height: 43px;" columns="2" columnClasses="colTitle1">
+									<p:graphicImage url="/images/iconos/internacionalIcon.png" height="25" width="25"/>
+									<h3>Eventos Internacionales</h3>
+								</h:panelGrid>
+							</p:panel>
+								
+								<p:treeTable value="#{documentsTreeController.root}" var="document" expanded="true">
+									<p:column>
+										<f:facet name="header">
+											&nbps;
+										</f:facet>
+										<h:outputText value="#{document.categoria}" />
+									</p:column>
+	
+									<p:column>
+										<f:facet name="header">
+											Evento
+										</f:facet>
+											<h:outputText value="#{document.evento.nombre}" />
+									</p:column>
+	
+									<p:column>
+										<f:facet name="header">
+											Fecha
+										</f:facet>
+										<h:outputText value="#{document.evento.inicio}"
+										converter="dateConverterParaHistorial" />
+									</p:column>
+									
+									<p:column>
+										<f:facet name="header">
+											Ubicación
+										</f:facet>
+										<h:panelGrid columns="2" >
+           									<p:gmap
+												center="#{document.evento.ubicacion.latitud}, #{document.evento.ubicacion.longitud}"
+												mapTypeControl="false" navigationControl="false"
+												draggable="true" disableDoubleClickZoom="true" zoom="15"
+												type="ROADMAP" style="width:200px;height:100px"
+												rendered="#{document.evento ne null}">
+											</p:gmap>
+											<h:button title="Ver Mapa" image="/images/iconos/earthicon.png" outcome="http://localhost:8080/SuperBetWeb/views/public/utiles/mapaEventos.xhtml" 
+												rendered="#{document.evento ne null}"/>
+										</h:panelGrid>
+									</p:column>
+								</p:treeTable>
+
+							<br/>
+							<p:panel>
+								<h:panelGrid style="align:left; height: 43px;" columns="2" columnClasses="colTitle1">
+									<p:graphicImage url="/images/iconos/internacionalIcon.png" height="25" width="25"/>
+									<h3>Ultimos Resultados</h3>
+								</h:panelGrid>
+							</p:panel>
+
+								<p:treeTable value="#{documentsTreeController.rootResultados}" var="documentResultado" expanded="true">
+									<p:column>
+										<f:facet name="header">
+											&nbps;
+										</f:facet>
+										<h:outputText value="#{documentResultado.categoria}" />
+									</p:column>
+	
+									<p:column>
+										<f:facet name="header">
+											Evento
+										</f:facet>
+											<h:outputText value="#{documentResultado.tipoEvento.evento.nombre}" />
+									</p:column>
+	
+									<p:column>
+										<f:facet name="header">
+											Fecha
+										</f:facet>
+										<h:outputText value="#{documentResultado.tipoEvento.evento.inicio}"
+										converter="dateConverterParaHistorial" />
+									</p:column>
+									
+									<p:column>
+										<f:facet name="header">
+											Resultado
+										</f:facet>
+										<h:outputText value="#{documentResultado.tipoEvento.ganador.description}" />
+									</p:column>
+								</p:treeTable>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</p:panel>
+		</ui:define>
+
+	</ui:composition>
+</html>

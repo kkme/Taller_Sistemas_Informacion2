@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition template="/templates/mod/bodyLayout.xhtml">
+
+
+		
+		<ui:define name="funcTitleAdmin">
+		<h:outputText value="Pagar Apuestas" ></h:outputText>
+		</ui:define>
+		
+		
+		<ui:define name="bodyContent"> 
+<p:wizard flowListener="#{moderadorMB.onFlowPagar}" >
+	<p:tab title="evento">
+	<ui:include src="/views/mod/resultados/wizPagar1.xhtml" />
+	</p:tab>
+	
+	<p:tab title="Tipo Apuestas">
+	<ui:include src="/views/mod/resultados/wizPagar2.xhtml" />
+	</p:tab>
+	
+	<p:tab title="Resultados">
+	<ui:include src="/views/mod/resultados/wizPagar3.xhtml" />
+	</p:tab>
+</p:wizard>
+
+		</ui:define>
+		
+
+		
+	</ui:composition>
+</html>
